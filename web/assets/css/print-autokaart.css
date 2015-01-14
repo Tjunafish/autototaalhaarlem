@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/* CSS Document */
+
+   
+	body { 	
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 16px; 
+		line-height:25px;
+		padding-top:60px;
+		height:100%;
+		/* IE10 Consumer Preview */ 
+		background: -ms-linear-gradient(top, #dddddd 0%, #ffffff 100%);
+	
+		/* Mozilla Firefox */ 
+		background: -moz-linear-gradient(top, #dddddd 0%, #ffffff 100%);
+		
+		/* Opera */ 
+		background: -o-linear-gradient(top, #dddddd 0%, #ffffff 100%);
+		
+		/* Webkit (Safari/Chrome 10) */ 
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #ffffff));
+		
+		/* Webkit (Chrome 11+) */ 
+		background: -webkit-linear-gradient(top, #dddddd 0%, #ffffff 100%);
+		
+		/* W3C Markup, IE10 Release Preview */ 
+		background: linear-gradient(to bottom, #dddddd 0%, #ffffff 100%);
+		background-attachment:fixed;
+		}
+	
+	h1 { font-size:48px; padding:75px 0 45px 0; color:#797979; text-transform:uppercase; }
+	h2 { font-family:Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif; font-size: 15px; }
+	
+	.price { color:#e13d00; text-transform:uppercase; font-size:48px; font-weight:600; height:213px; position:relative; }
+	.price span { position:absolute; right:0; bottom:24px; }
+	
+	ul.feature-list {
+		display:block;
+		overflow:auto;
+		padding-bottom:75px;
+		}
+		
+	ul.feature-list li {
+		width:48%;
+		margin:0 2% 0 0;
+		float:left;
+		font-size:32px;
+		font-weight: normal;
+		line-height: 48px;
+		color:#b2b1b1;
+	}
+	
+	ul.feature-list li span { 
+		color:#797979;
+		}
+		
+	ul.options { 
+		display:block; 
+		overflow: auto; 
+		padding-bottom:40px; 
+		float:left;
+		}
+	
+	ul.options li {
+		width:48%;
+		float:left;
+		margin:0 2% 0 0;
+		font-family:Arial, sans-serif, Gotham, "Helvetica Neue", Helvetica;
+		font-size: 15px;
+		font-weight:bold;
+		line-height: 28px;
+		padding: 0 30px 0 0;
+	}
+	
+	ul.options li:before {
+		background-color: #e13d00;
+		border-radius: 50%;
+		content: "";
+		float: left;
+		height: 0.5em;
+		line-height: 1em;
+		margin: 0.5em 0.5em 0 0;
+		width: 0.5em;
+	}
+	
+	
+	
+	#footer { 
+		background:#e13d00; 
+		color:#fff; 
+		padding-top:20px; 
+		padding-bottom:20px; 
+		margin-top:26px; 
+		text-align:center;
+		font-size:20px;
+		}
+

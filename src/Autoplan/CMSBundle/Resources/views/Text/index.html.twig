@@ -1,0 +1,93 @@
+{% extends 'AutoplanCMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <ol class="breadcrumb bc-3">
+        <li>
+            <a href="{{ path('admin_dashboard') }}"><i class="entypo-home"></i>Home</a>
+        </li>
+        <li class="active">
+
+            <strong>Teksten</strong>
+        </li>
+    </ol>
+
+
+    <h2>Tekstblokken</h2>
+    <table class="table table-bordered table-striped datatable" id="page-table">
+    <thead>
+    <tr>
+        <th>Code</th>
+        <th>Titel</th>
+        <th>Acties</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for text in texts %}
+        <tr>
+            <td>{{ text.textKey }}</td>
+            <td>{{ text.title }}</td>
+            <td>
+                <a href="{{ path('admin_text_edit', {id: text.id}) }}" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-pencil"></i>
+                    Bewerken
+                </a>
+
+                <a href="{{ path('admin_text_delete', {id: text.id}) }}" class="btn btn-danger btn-sm btn-icon icon-left">
+                    <i class="entypo-cancel"></i>
+                    Verwijderen
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+    <a href="{{ path('admin_text_new') }}" class="btn btn-primary">
+        <i class="entypo-plus"></i>
+        Nieuwe tekst
+    </a>
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function()
+        {
+            $("#page-table").dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "t<'row'<'col-xs-6 col-left'i><'col-xs-6 col-right'p>>",
+                "bStateSave": false,
+                "iDisplayLength": 10,
+                "aoColumns": [
+                    null,
+                    { "bSortable": false }
+                ]
+            });
+
+            $(".dataTables_wrapper select").select2({
+                minimumResultsForSearch: -1
+            });
+
+            // Highlighted rows
+            $("#page-table tbody input[type=checkbox]").each(function(i, el)
+            {
+                var $this = $(el),
+                        $p = $this.closest('tr');
+
+                $(el).on('change', function()
+                {
+                    var is_checked = $this.is(':checked');
+
+                    $p[is_checked ? 'addClass' : 'removeClass']('highlight');
+                });
+            });
+
+            // Replace Checboxes
+            $(".pagination a").click(function(ev)
+            {
+                replaceCheckboxes();
+            });
+        });
+
+    </script>
+
+{% endblock %}

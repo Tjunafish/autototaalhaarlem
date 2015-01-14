@@ -1,0 +1,136 @@
+{% extends 'AutoplanCMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <ol class="breadcrumb bc-3">
+        <li>
+            <a href="{{ path('admin_dashboard') }}"><i class="entypo-home"></i>Home</a>
+        </li>
+        <li class="active">
+
+            <strong>Auto's {% if section == 'autoplan' %}Autoplan{% else %}ASH{% endif %}</strong>
+        </li>
+    </ol>
+
+
+    <h2>Auto's {% if section == 'autoplan' %}Autoplan{% else %}ASH{% endif %}</h2>
+    <table class="table table-bordered table-striped datatable" id="page-table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Aangemaakt</th>
+        <th>Merk</th>
+        <th>Model</th>
+        <th>Type</th>
+        <th>Prijs</th>
+        <th>Aanbieding</th>
+        <th>Acties</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for car in cars %}
+        <tr>
+            <td>{% if car.firstPhoto is not null %}<img src='{{ vich_uploader_asset(car.firstPhoto, 'image') | apply_filter('car_tiny')}}'/>{% endif %}</td>
+            <td>{{ car.created | date('Y-m-d h:i:s') }}</td>
+            <td>{{ car.carBrand }}</td>
+            <td>{{ car.carBrandModel }}</td>
+            <td>{{ car.type }}</td>
+            <td>{{ car.price }}</td>
+            <td>
+                {% if car.isOffer %}
+                    <button type="button" class="btn btn-success car-offer" data-id="{{ car.id }}">
+                        <i class="entypo-check"></i>
+                    </button>
+                {% else %}
+                    <button type="button" class="btn btn-danger car-offer" data-id="{{ car.id }}">
+                        <i class="entypo-cancel"></i>
+                    </button>
+                {% endif %}
+            </td>
+            <td>
+                <a target="_blank" href="{{ path('admin_car_pdf', {id: car.id}) }}" class="btn btn-danger btn-sm btn-icon icon-left">
+                    <i class="entypo-doc-text"></i>
+                    Autokaart
+                </a>
+                <a onclick="return confirm('Weet je zeker dat je deze auto wilt verwijderen?');" href="{{ path('admin_car_delete', {id: car.id}) }}" class="btn btn-danger btn-sm btn-icon icon-left">
+                    <i class="entypo-cancel"></i>
+                    Verwijderen
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function()
+        {
+            jQuery("#page-table").dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "lfrt<'row'<'col-xs-6 col-left'i><'col-xs-6 col-right'p>>",
+                "bStateSave": true,
+                "iDisplayLength": 50,
+                'aaSorting': [[1,'desc']],
+                'aPaginationLengths': [50,100]
+            });
+
+            $(".dataTables_wrapper select").select2({
+                minimumResultsForSearch: -1
+            });
+
+            // Highlighted rows
+            $("#page-table tbody input[type=checkbox]").each(function(i, el)
+            {
+                var $this = $(el),
+                        $p = $this.closest('tr');
+
+                $(el).on('change', function()
+                {
+                    var is_checked = $this.is(':checked');
+
+                    $p[is_checked ? 'addClass' : 'removeClass']('highlight');
+                });
+            });
+
+            // Replace Checboxes
+            $(".pagination a").click(function(ev)
+            {
+                replaceCheckboxes();
+            });
+
+            $('.car-offer').on('click', function() {
+                var carId = $(this).data('id');
+                var val = $(this).hasClass('btn-danger');
+
+                var el = $(this);
+
+                $.ajax({
+                    url: '{{ path('admin_car_update') }}',
+                    data: {
+                        id: carId,
+                        key: 'isOffer',
+                        value: val
+                    },
+                    dataType: 'json'
+                }).done( function(res){
+                    if(res.result.success) {
+                        if(val) {
+                            $(el).removeClass('btn-danger');
+                            $(el).addClass('btn-success');
+                            $(el).find('i').removeClass('entypo-cancel');
+                            $(el).find('i').addClass('entypo-check');
+                        } else {
+                            $(el).removeClass('btn-success');
+                            $(el).addClass('btn-danger');
+                            $(el).find('i').removeClass('entypo-check');
+                            $(el).find('i').addClass('entypo-cancel');
+                        }
+                    }
+                });
+            })
+        });
+
+    </script>
+
+{% endblock %}

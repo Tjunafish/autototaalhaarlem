@@ -1,0 +1,28 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">&nbsp;</div>
+    </section>
+
+    <main id="article">
+
+        <div class="container">
+            <div class="disclaimer-mobile">
+                <div class="white-container">
+                    <h2 class="disclaimer-title">{% trans %}Successfully unsubscribed you.{% endtrans %}</h2>
+                    	{% trans %}Redirecting you to the homepage in 3 seconds.{% endtrans %}
+                    <br />
+                    <hr>
+                </div>
+            </div>
+    </main>
+
+    <script>
+		function redirectNow () {
+			window.location = "{{ url('site_home') }}";
+		}
+		setTimeout(redirectNow, 3000);
+	</script>
+{% endblock %}

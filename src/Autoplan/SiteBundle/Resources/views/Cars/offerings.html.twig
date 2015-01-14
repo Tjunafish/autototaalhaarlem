@@ -1,0 +1,213 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block header_css %}
+    <!--BEGIN ONLY ON HOMEPAGE-->
+    <link href="/assets/css/animate.min.css" rel="stylesheet">
+    <link href="/assets/css/bounceInDown.css" rel="stylesheet">
+    <link href="/assets/css/bounceInUp.css" rel="stylesheet">
+    <!--END ONLY ON HOMEPAGE-->
+
+{% endblock %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+					<div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+					</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 visible-md visible-lg image-holder">
+                                <img src="/images/logo-autoplan2.png" class="img-responsive logo-ap-offerings" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-blue visible-xs" id="naw-home-visual">
+        <div class="container">
+            <div class="row">
+                {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-grey {#visible-sm visivle-md visible-lg#}" id="section-search-carousel">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 nopadding">
+                    <ul id="carlist" class="nav nav-tabs pull-left">
+                        <li class="active"><a data-toggle="tab" href="#new">Nieuw binnen</a></li>
+                        {% if inoffer | length > 0 %}
+                            <li><a data-toggle="tab" href="#offers">Aanbiedingen</a></li>
+                        {% endif %}
+                        {% if popular | length > 0 %}
+                            <li><a data-toggle="tab" href="#popular">Meest populair</a></li>
+                        {% endif %}
+                        {% if ash_cars | length > 0 %}
+                            <li class="visible-sm visible-md visible-lg"><a data-toggle="tab" href="#specials">Specials</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5 visible-sm visible-md visible-lg nopadding">
+                    <ul class="nav nav-tabs pull-right" id="quick-search">
+                        <li>
+                            <form method="post" id="search" action="{{ path('site_search') }}">
+                                <input type="hidden" name="searchBy" value="2">
+                                <input name="search_query" type="text" value="{{ search.search_query }}" placeholder="Snel zoeken..."><input type="submit" value="zoeken">
+                            </form>
+                        </li>
+                        <li><a href="#" title="Uitgebreid zoeken" id="icon-blue-arrow" onclick="return showSearch();">Uitgebreid zoeken</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="new">
+
+                        <div id="owl-new" class="owl-holder">
+                            {% for car in new_cars %}
+                                {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    {% if inoffer | length > 0 %}
+                    <div class="tab-pane" id="offers">
+
+                        <div id="owl-offers" class="owl-holder">
+                            {% for car in inoffer %}
+                                {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    {% endif %}
+                    {% if popular | length > 0 %}
+                    <div class="tab-pane" id="popular">
+
+                        <div id="owl-popular" class="owl-holder">
+                            {% for car in popular %}
+                                {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    {% endif %}
+                    {% if ash_cars | length > 0 %}
+                    <div class="tab-pane" id="specials">
+
+                        <div id="owl-specials" class="owl-holder">
+                            {% for car in ash_cars %}
+                                {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="find-car" class="bg-grey stock-div" style="display: none !important">
+        <div class="container">
+            <div class="row">
+                {{ render(controller('AutoplanSiteBundle:Cars:findCar')) }}
+            </div>
+        </div>
+    </section>
+    <section class="retour visible-sm visible-md visible-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="retour80">
+                        <img src="/images/80-retour.png" alt="" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="stock" class="bg-grey">
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 stock-div">
+    <ul id="stocklist">
+        {{ render(controller('AutoplanSiteBundle:Cars:carResults')) }}
+    </ul>
+    </div>
+
+    {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a class="btn btn-block btn-default" href="#">Laad meer auto&rsquo;s</a>
+    </div>#}
+    </div>
+    </div>
+    </section>
+
+    <div class="visible-sm visible-md visible-lg" id="pagenavigation">
+        <div id="pagenav" style="margin-bottom: 220px">
+            <div id="page-top"><a href="#top" title="Naar boven">Top</a></div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+
+<script src="/assets/js/bootstrap-slider.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $("#owl-new").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+            $("#owl-offers").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+            $("#owl-popular").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+            $("#owl-specials").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+
+        });
+
+    </script>
+
+{% endblock %}

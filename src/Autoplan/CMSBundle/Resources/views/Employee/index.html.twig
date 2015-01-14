@@ -1,0 +1,105 @@
+{% extends 'AutoplanCMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <ol class="breadcrumb bc-3">
+        <li>
+            <a href="{{ path('admin_dashboard') }}"><i class="entypo-home"></i>Home</a>
+        </li>
+        <li class="active">
+
+            <strong>Medewerkers</strong>
+        </li>
+    </ol>
+
+
+    <h2>Medewerkers</h2>
+    <table class="table table-bordered table-striped datatable" id="page-table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Functie</th>
+        <th>Acties</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for employee in employees %}
+        <tr>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.position }}</td>
+            <td>
+                {% if not loop.first %}
+                    <a href="{{ path('admin_employee_up', {id: employee.id}) }}" class="btn btn-blue btn-sm btn-icon icon-left">
+                        <i class="entypo-up"></i>
+                        Omhoog
+                    </a>
+                {% endif %}
+                {% if not loop.last %}
+                    <a href="{{ path('admin_employee_down', {id: employee.id}) }}" class="btn btn-blue btn-sm btn-icon icon-left">
+                        <i class="entypo-down"></i>
+                        Omlaag
+                    </a>
+                {% endif %}
+                <a href="{{ path('admin_employee_edit', {id: employee.id}) }}" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-pencil"></i>
+                    Bewerken
+                </a>
+
+                <a href="{{ path('admin_employee_delete', {id: employee.id}) }}" class="btn btn-danger btn-sm btn-icon icon-left">
+                    <i class="entypo-cancel"></i>
+                    Verwijderen
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+    <a href="{{ path('admin_employee_new') }}" class="btn btn-primary">
+        <i class="entypo-plus"></i>
+        Nieuwe Medewerker
+    </a>
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function()
+        {
+            $("#page-table").dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "t<'row'<'col-xs-6 col-left'i><'col-xs-6 col-right'p>>",
+                "bStateSave": false,
+                "iDisplayLength": 10,
+                "aoColumns": [
+                    null,
+                    { "bSortable": false }
+                ]
+            });
+
+            $(".dataTables_wrapper select").select2({
+                minimumResultsForSearch: -1
+            });
+
+            // Highlighted rows
+            $("#page-table tbody input[type=checkbox]").each(function(i, el)
+            {
+                var $this = $(el),
+                        $p = $this.closest('tr');
+
+                $(el).on('change', function()
+                {
+                    var is_checked = $this.is(':checked');
+
+                    $p[is_checked ? 'addClass' : 'removeClass']('highlight');
+                });
+            });
+
+            // Replace Checboxes
+            $(".pagination a").click(function(ev)
+            {
+                replaceCheckboxes();
+            });
+        });
+
+    </script>
+
+{% endblock %}

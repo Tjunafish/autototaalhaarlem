@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta property="og:title" content="{{ entity.subject }}">
+
+        <title>{{ entity.subject }}</title>
+		<style type="text/css">
+			/* Based on The MailChimp Reset INLINE: Yes. */
+			/* Client-specific Styles */
+			#outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
+			body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+			/* Prevent Webkit and Windows Mobile platforms from changing default font sizes.*/
+			.ExternalClass {width:100%;} /* Force Hotmail to display emails at full width */
+			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+			/* Forces Hotmail to display normal line spacing.  More on that: http://www.emailonacid.com/forum/viewthread/43/ */
+			#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important; background-color: #eae7e7; background-repeat: no-repeat; background-position: center top;}
+			#bigBackgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important; background-color: #eae7e7; background-repeat: no-repeat; background-position: center top;}
+			/* End reset */
+
+			/* Some sensible defaults for images
+			Bring inline: Yes. */
+			img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+			a img {border:none;}
+			.image_fix {display:block;}
+
+			/* Yahoo paragraph fix
+			Bring inline: Yes. */
+			p {margin: 1em 0;}
+
+			/* Hotmail header color reset
+			Bring inline: Yes. */
+			h1, h2, h3, h4, h5, h6 {color: black !important;}
+
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
+
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+			color: red !important; /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			}
+
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+			color: purple !important; /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
+			}
+
+			/* Outlook 07, 10 Padding issue fix
+			Bring inline: No.*/
+			table td {border-collapse: collapse;}
+
+			/* Remove spacing around Outlook 07, 10 tables
+			Bring inline: Yes */
+			table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+			/* Styling your links has become much simpler with the new Yahoo.  In fact, it falls in line with the main credo of styling in email and make sure to bring your styles inline.  Your link colors will be uniform across clients when brought inline.
+			Bring inline: Yes. */
+			a {color: #fc671a; text-decoration: underline;}
+		</style>
+	</head>
+	<body bgcolor="#eae7e7" style="font-family: Helvetica, Arial, sans-serif; font-size: 17px; font-weight: 300;">
+		<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
+			<tr>
+				<td valign="top" align="center">
+
+					<table cellpadding="0" cellspacing="0" border="0" id="bigBackgroundTable" style="background-image: url('{{ app.request.uriForPath('/bundles/autoplancms/assets/images/newsletter/header.png') }}');">
+						<tr>
+							<td valign="top" align="center">
+								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
+									<tr>
+										<td width="600" valign="bottom" align="right" style="font-size: 12px; line-height: 15px; padding-top: 20px;">
+											{% trans %}Cannot read newsletter?{% endtrans %}
+											<a href="{{ url('newsletter_preview', {slug: entity.slug}) }}" style="color: #fc6719; text-decoration: underline">
+												{% trans %}Click here{% endtrans %}
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td width="600" height="220" valign="top">
+											<a href="{{ url('site_home') }}" style="display: block; width: 170px; height: 120px; outline: 0;" target="_blank">&nbsp;</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+
+					{% if cars %}
+
+						{% for key, car in cars %}
+
+							{% if key % 2 == 0 %}
+								<!-- Cars here -->
+								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
+									<tr class="cars">
+										<td width="600">
+											<table cellpadding="0" cellspacing="0" border="0" width="600">
+												<tr>
+							{% endif %}
+
+
+							<td width="290" bgcolor="white" align="center" valign="top" style="padding: 3px 0">
+
+								<table cellspacing="0" cellpadding="0" border="0" width="284" align="center">
+									<tr>
+										<td>
+											<a href="{{ carUrl(car.section, car.carBrand.slug, car.sortname|slugify, car.id, true) }}" target="_blank">
+												<img src="{{ app.request.uriForPath(car.firstImageUrl) }}" alt="" style="max-width:285px;" />
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" style="padding: 15px; font-size: 17px; line-height: 24px; font-weight: 300;" >
+											<a href="{{ carUrl(car.section, car.carBrand.slug, car.sortname|slugify, car.id, true) }}" style="color: #7a7a7a; text-decoration: none; font-size: 17px; line-height: 24px; font-weight: 300;" target="_blank">
+												{{ car.sortname }}
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td align="left" style="padding: 15px; font-size: 17px; line-height: 24px; font-weight: 300;">
+
+											<table cellpadding="0" cellspacing="0" border="0" width="254">
+												<tr>
+													<td style="font-size: 17px; line-height: 24px; font-weight: 300; color: #7a7a7a;" align="left">
+														{% trans %}Price{% endtrans %}
+													</td>
+													<td style="font-size: 17px; line-height: 24px; font-weight: 300; color: #f9752c;" width="120" align="left">
+														&euro; {{ car.price | number_format(0,',','.') }},-
+													</td>
+												</tr>
+												{% if car.monthlyprice %}
+													<tr>
+														<td style="font-size: 17px; line-height: 24px; font-weight: 300; color: #7a7a7a;" align="left">
+															{% trans %}Per month{% endtrans %}
+														</td>
+														<td style="font-size: 17px; line-height: 24px; font-weight: 300; color: #f9752c;"width="120" align="left">
+															&euro; {{ car.monthlyprice | number_format(2,',','.') }},-
+														</td>
+													</tr>
+												{% endif %}
+											</table>
+
+										</td>
+									</tr>
+								</table>
+
+							</td>
+
+							{% if key % 2 == 0 %}
+								<td width="20">&nbsp;</td>
+							{% endif %}
+
+							{% if key % 2 == 1 %}
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+									<tr>
+										<td width="600" height="20">&nbsp;</td>
+									</tr>
+								</table>
+								<!-- End Cars here -->
+							{% endif %}
+						{% endfor %}
+
+						{% if carCount % 2 == 1 %}
+												<td width="290" align="center" valign="top" style="padding: 3px 0">
+													&nbsp;
+												</td>
+											</tr>
+										</table>
+
+									</td>
+								</tr>
+								<tr>
+									<td width="600" height="20">&nbsp;</td>
+								</tr>
+							</table>
+							<!-- End Cars here -->
+						{% endif %}
+
+					{% endif %}
+
+					{% if entity.text %}
+
+						<!-- Text here -->
+						<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
+							<tr>
+								<td width="600" height="60">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td width="600" style="font-size: 18px; line-height: 32px; font-weight: 300; color: #010101;" align="center">
+									{{entity.text|raw}}
+								</td>
+							</tr>
+
+							<tr>
+								<td width="600" height="30">&nbsp;</td>
+							</tr>
+						</table>
+						<!-- End Text here -->
+
+					{% endif %}
+
+					<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
+						<tr>
+							<td width="600" height="45">&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="600" bgcolor="#464545" style="background: #464545; color: white; font-size: 20px; line-height: 30px;">
+
+								<table cellpadding="0" cellspacing="0" border="0" bgcolor="#464545" width="600">
+
+									<tr>
+										<td align="center" style="color: white; padding: 20px; background: #464545; font-size: 18px;">
+											{% trans %}Zakelijk of particulier een financiering nodig? <br/>
+											Bekijk hier uw mogelijkheden!{% endtrans %}
+										</td>
+										<td align="center" style="color: white; padding: 20px 0;" width="170px" align="center">
+											<a href="{{ url('site_1st_level', {'firstLevel': 'financiering'}) }}" style="display: inline-block; color: white; text-transform: uppercase; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.11); background: #f5610f linear-gradient(#ff6f1f, #eb5400); box-shadow: 0 1px 2px rgba(80, 80, 80, 0.5); padding: 15px 15px 12px 15px; font-size: 18px; line-height: 20px; text-transform: uppercase; cursor: pointer; text-decoration: none">
+												{% trans %}Klik hier{% endtrans %}
+											</a>
+										</td>
+									</tr>
+
+								</table>
+
+							</td>
+						</tr>
+						<tr>
+							<td width="600" height="50">&nbsp;</td>
+						</tr>
+					</table>
+
+					<!-- // Begin Template Footer \\ -->
+						<!-- Text here -->
+						<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
+
+							<tr>
+								<td width="600" style="font-size: 14px; line-height: 24px; color: black;">
+
+									<table cellpadding="0" cellspacing="0" border="0" width="600">
+
+										<tr>
+											<td align="left" style="font-size: 14px; line-height: 24px; color: black;" valign="top">
+												<strong>Auto Service Haarlem</strong><br/>
+												{{ textBlock("contact-adres") | raw}}<br/>
+												{{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}}<br/>
+												<br/>
+												T. {{ textBlock("contact-telefoon") | raw}}<br/>
+												<a style="color: black; text-decoration: none;" href="mailto:{{ textBlock("contact-email") | raw}}">{{ textBlock("contact-email") | raw}}</a><br/>
+												<a style="color: black; text-decoration: none;" href="http://www.autoservicehaarlem.nl" target="_blank">www.autoservicehaarlem.nl</a>
+
+											</td>
+											<td align="right" style="font-size: 14px; line-height: 24px; color: black;" valign="top">
+												<strong>{% trans %}Openingstijden{% endtrans %}</strong><br/>
+												{{ textBlockTitle("tijden-mavr") | raw}} {{ textBlock("tijden-mavr") | raw}}<br/>
+												{{ textBlockTitle("tijden-za") | raw}} {{ textBlock("tijden-za") | raw}}<br/>
+												{{ textBlockTitle("tijden-zo") | raw}} {{ textBlock("tijden-zo") | raw}}
+
+												<p style="margin: 50px 0 0 0;">
+													<a href="https://www.facebook.com/autoservicehaarlem" style="vertical-align:middle; text-decoration: none; font-size: 18px; font-weight: bold; color: #030303;" target="_blank">
+														{% trans %}Like ons op facebook{% endtrans %}
+														<img src="{{ app.request.uriForPath('/bundles/autoplancms/assets/images/newsletter/fb-icon.png') }}" alt="" style="vertical-align: middle" />
+													</a>
+												</p>
+											</td>
+										</tr>
+
+									</table>
+
+								</td>
+							</tr>
+
+							<tr>
+								<td width="600" height="50">&nbsp;</td>
+							</tr>
+						</table>
+						<!-- End table -->
+
+
+						<table cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="white" style="background-color: white" width="100%">
+							<tr>
+								<td align="center">
+
+									<table cellpadding="0" cellspacing="0" border="0" width="600" align="center">
+
+										<tr>
+											<td style="padding: 14px 0; font-size: 12px; line-height: 14px; font-weight: 400; color: #010101;" align="left">
+												{% trans %}Copyright &copy; 2015 Auto Service Haarlem, All rights reserved.{% endtrans %} |
+												<a href="{{ url('newsletter_unsubscribe', {slug: subscriber.slug, id: subscriber.id}) }}" style="color: #010101; text-decoration: underline;">{% trans %}Unsubscribe{% endtrans %}</a>
+											</td>
+											<td style="padding: 14px 0; font-size: 12px; line-height: 14px; font-weight: 400; color: #010101;" align="right">
+												{% trans %}Created by <a href="http://www.merqwaardig." style="color: #010101; text-decoration: none;" target="_blank">Merqwaardig</a>{% endtrans %}
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<!-- End table -->
+					<!-- // End Template Footer \\ -->
+
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

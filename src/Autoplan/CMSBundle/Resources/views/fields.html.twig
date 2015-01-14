@@ -1,0 +1,54 @@
+{% block form_row %}
+    {% spaceless %}
+        {%  if form.vars.attr.class is defined and form.vars.attr.class == 'ckeditor' %}
+            <div class="form-group{% if form.vars.attr.row_class is defined %} {{ form.vars.attr.row_class }}{% endif %}">
+                {{ form_label(form, null, {'label_attr': {'class': 'control-label col-sm-3'}}) }}
+                <div class="col-sm-5">
+
+                    {{ form_widget(form) }}
+                    {{ form_errors(form) }}
+
+                </div>
+            </div>
+        {%  else %}
+            <div class="form-group">
+                {{ form_label(form, null, {'label_attr': {'class': 'control-label col-sm-3'}}) }}
+
+                <div class="col-sm-5">
+                    {% if form.vars.attr.class is defined %}
+                        {{ form_widget(form, {'attr': {'class': 'form-control ' ~ form.vars.attr.class } }) }}
+                    {% else %}
+                        {{ form_widget(form, {'attr': {'class': 'form-control'} }) }}
+                    {% endif %}
+                    {{ form_errors(form) }}
+                </div>
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block autoplan_image_upload_widget %}
+    {% spaceless %}
+        <div class="fileinput {% if hasImage %}fileinput-exists{% else %}fileinput-new{% endif %}" data-provides="fileupload">
+            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
+                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+            </div>
+            <div class="fileinput-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
+                {% if hasImage %}
+                    <img src="{{ vich_uploader_asset(object, imageProp) | apply_filter(previewfilter)}}"><br />
+                {% endif %}
+            </div>
+            <div>
+                <span class="btn btn-white btn-file">
+                    <span class="fileinput-new">Select image</span>
+                    <span class="fileinput-exists">Change</span>
+                    <input type="file" class="default" {{ block('widget_attributes') }}/>
+                </span>
+                {#<a href="#" class="btn fileupload-exists btn-light-grey" data-dismiss="fileupload">
+                    <i class="fa fa-times"></i> Remove
+                </a>#}
+            </div>
+
+        </div>
+    {% endspaceless %}
+{% endblock %}

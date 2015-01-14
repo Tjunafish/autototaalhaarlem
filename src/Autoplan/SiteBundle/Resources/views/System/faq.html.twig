@@ -1,0 +1,55 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+					<div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+					</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <main id="article">
+        <section class="bg-blue visible-xs" id="naw-home-visual">
+            <div class="container">
+                <div class="row">
+                    {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+                </div>
+            </div>
+        </section>
+        <!--<section>-->
+        <div class="container">
+            <div class="row visible-sm visible-md visible-lg">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul id="tabautoplan" class="nav nav-tabs">
+                        <li><a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}" title="Wat is AutoPlan">Wat is AutoPlan</a></li>
+                        <li><a href="{{ path('site_1st_level', {'firstLevel': 'wie-zijn-wij'}) }}" title="Wie zijn wij">Wie zijn wij</a></li>
+                        <li class="active"><a href="{{ path('site_faq') }}" title="Veelgestelde vragen">Veel gestelde vragen</a></li>
+                        <li><a href="{{ path('site_1st_level', {'firstLevel': 'algemene-voorwaarden'}) }}" title="Algemene voorwaarden">Algemene voorwaarden</a></li>
+                        <li><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row borderbottom">
+                <div id="faq">
+                    <h2 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-blue">Veel gestelde vragen</h2>
+                    <div id="faq">
+                        {% for faq in faqs %}
+                            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <h3 class="txt-blue">{{ faq.question }}</h3>
+                                {{ faq.answer }}
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</section>-->
+    </main>
+{% endblock %}

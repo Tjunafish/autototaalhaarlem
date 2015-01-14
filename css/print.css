@@ -1,0 +1,57 @@
+* {
+	background:				none !important;
+}
+
+#header,
+#top_spacer,
+#papertrail,
+#footer,
+.options,
+.contact,
+.car .label .right,
+.car .label .left,
+.car.detail .share,
+.car.block {
+	display:				none;
+}
+
+.car.detail {
+	padding-bottom:			90px;
+}
+
+.car .label {
+	border:					0 !important;
+}
+
+.car .label > p {
+	color:					#F35100 !important;
+	font-size:				36px;
+	width:					200px;
+	position:				absolute;
+	right:					5px;
+}
+
+.green .car .label > p {
+	color:					#479200 !important;
+}
+
+.car.detail .description .certificates a {
+	color:					#fff !important;
+}
+
+html,
+body {
+	height:					auto;
+}
+
+#wrapper {
+	min-height:				0;
+}
+
+#container {
+	padding-bottom:			0;
+}
+
+.car {
+	box-shadow:				0;
+}

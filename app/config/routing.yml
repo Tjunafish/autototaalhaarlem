@@ -1,0 +1,19 @@
+autoplan_cms:
+    resource: "@AutoplanCMSBundle/Controller/"
+    type:     annotation
+    prefix:   /cms
+
+autoplan_service:
+    resource: "@AutoplanServiceBundle/Controller/"
+    type:     annotation
+    prefix:   /api
+
+autoplan_site:
+    resource: "@AutoplanSiteBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+_imagine:
+    resource: .
+    type:     imagine

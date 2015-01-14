@@ -1,0 +1,50 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block content %}
+    <main class="bg-grey">
+        <section id="sitemap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 visible-md visible-lg nopadding">
+                        <img src="/images/autoplan-nederland.png" alt="Autoplan Nederland" class="img-responsive">
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <h2>Sitemap</h2>
+                        <ul>
+                            <li><a href="{{ path('site_home') }}" title="Home">Home</a></li>
+                            <li><a href="{{ path('site_offerings_autoplan') }}" title="Aanbod Autoplan">Aanbod Autoplan</a></li>
+                            <li><a href="{{ path('site_offerings_ash') }}" title="Aanbod ASH Specials">Aanbod ASH Specials</a></li>
+                            <li><a href="#" title="Autoplan">Autoplan</a>
+                                <ul>
+                                    <li><a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}" title="Wat is AutoPlan">Wat is AutoPlan</a></li>
+                                    <li><a href="{{ path('site_1st_level', {'firstLevel': 'wie-zijn-wij'}) }}" title="Wie zijn wij">Wie zijn wij</a></li>
+                                    <li><a href="{{ path('site_faq') }}" title="Veel gestelde vragen">Veel gestelde vragen</a></li>
+                                    <li><a href="{{ path('site_1st_level', {'firstLevel': 'algemene-voorwaarden'}) }}" title="Algemene Voorwaarden">Algemene Voorwaarden</a></li>
+                                    <li><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer">Disclaimer</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'financiering'}) }}" title="Financiering">Financiering</a></li>
+                            <li><a href="{{ path('site_contact') }}" title="Contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <h2>Aanbod Autoplan</h2>
+                        <ul>
+                            {% for slug,brand in brands_autoplan %}
+                                <li><a href="{{ path('site_offerings_autoplan_brand', {'brand': slug}) }}" title="{{ brand.title }}">{{ brand.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <h2>Aanbod ASH Specials</h2>
+                        <ul>
+                            {% for slug,brand in brands_ash %}
+                                <li><a href="{{ path('site_offerings_ash_brand', {'brand': slug}) }}" title="{{ brand.title }}">{{ brand.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

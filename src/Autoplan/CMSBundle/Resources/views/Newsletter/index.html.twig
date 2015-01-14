@@ -1,0 +1,105 @@
+{% extends 'AutoplanCMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <ol class="breadcrumb bc-3">
+        <li>
+            <a href="{{ path('admin_dashboard') }}"><i class="entypo-home"></i>Home</a>
+        </li>
+        <li class="active">
+
+            <strong>Newsletters</strong>
+        </li>
+    </ol>
+
+
+    <h2>Newsletters</h2>
+    <table class="table table-bordered table-striped datatable" id="subscribers-table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Created</th>
+        <th>Acties</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.title }}</td>
+            <td>{{ entity.subject }}</td>
+            <td>{{ entity.created | date('Y-m-d h:i:s') }}</td>
+            <td>
+                <a href="{{ path('admin_newsletter_edit', {id: entity.id}) }}" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-pencil"></i>
+                    Edit
+                </a>
+                <a href="{{ path('admin_newsletter_send', {id: entity.id}) }}" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-upload"></i>
+                    Send
+                </a>
+                <a href="{{ path('newsletter_preview', {slug: entity.slug}) }}" target="_blank" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-eye"></i>
+                    Preview
+                </a>
+
+                <a href="{{ path('admin_newsletter_delete', {id: entity.id}) }}" class="btn btn-danger btn-sm btn-icon icon-left">
+                    <i class="entypo-cancel"></i>
+                    Delete
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+    <a href="{{ path('admin_newsletter_new') }}" class="btn btn-primary">
+        <i class="entypo-plus"></i>
+        Add newsletter
+    </a>
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function()
+        {
+            $("#subscribers-table").dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "t<'row'<'col-xs-6 col-left'i><'col-xs-6 col-right'p>>",
+                "bStateSave": false,
+                "iDisplayLength": 10,
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    { "bSortable": false }
+                ]
+            });
+
+            $(".dataTables_wrapper select").select2({
+                minimumResultsForSearch: -1
+            });
+
+            // Highlighted rows
+            $("#subscribers-table tbody input[type=checkbox]").each(function(i, el)
+            {
+                var $this = $(el),
+                        $p = $this.closest('tr');
+
+                $(el).on('change', function()
+                {
+                    var is_checked = $this.is(':checked');
+
+                    $p[is_checked ? 'addClass' : 'removeClass']('highlight');
+                });
+            });
+
+            // Replace Checboxes
+            $(".pagination a").click(function(ev)
+            {
+                replaceCheckboxes();
+            });
+        });
+
+    </script>
+
+{% endblock %}

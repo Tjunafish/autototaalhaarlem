@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Printen</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://www.autoservicehaarlem.nl/assets/css/reset.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="http://www.autoservicehaarlem.nl/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://www.autoservicehaarlem.nl/assets/css/autokaartAutoplan.css">
+
+</head>
+
+<body>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <img src="http://www.autoservicehaarlem.nl/images/autokaart/logo-autoplan.jpg" alt="" class="img-responsive" style="width: 200px">
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <table class="price">
+                    <tr style="height: 60px">
+                        <td class="attr">Prijs&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td class="val">&euro; {{ car.price | number_format(0,',','.') }},-</td>
+                    </tr>
+                    <tr>
+                        <td class="attr">3 jaar rijden kost&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td class="val">&euro; {{ car.price | carCosts | number_format(0,',','.') }},-</td>
+                    </tr>
+                    <tr>
+                        <td class="attr">Per dag slechts&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td class="val">&euro; {{ car.price | carCostsDaily | number_format(2,',','.') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ car.sortname }}</h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="feature-list">
+                    <li><span>Model:</span> {{ car.carBrandModel }}</li>
+                    <li><span>Brandstof:</span> {{ car.carFuel | fuelTitle }}</li>
+                    <li><span>Bouwjaar:</span> {{ car.constructionyear }}</li>
+                    <li><span>Kilometerstand:</span> {{ car.kmcounter | number_format(0,',','.') }} km</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Opties</h2>
+                <ul class="options">
+                    {% for accessoire in car.accessoiresList %}
+                        <li><span>{{ accessoire }}</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <img src="http://www.autoplannederland.nl/images/autokaart/logo-nap.png" alt="" class="img-responsive">
+            </div>#}
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<li class="bg-white">
+    <a href="{{ carUrl(car.attrs.section, car.attrs.brand_id_slug, car.attrs.sortname|slugify, car.attrs.object_id) }}">
+        <figure>
+            <img src="{{ car.attrs.image_url }}" class="img-responsive" alt="" style="width:100%">
+        </figure>
+        <div class="text">
+            <h3>{{ car.attrs.sortname | tinyString(40) }}</h3>
+            <ul class="stock-price">
+                {% if car.attrs.section == 0 %}
+                    <li>Prijs <span class="txt-yellow">&euro; {{ car.attrs.price | number_format(0,',','.') }},-</span></li>
+                    <li>Retourgarantie na 3 jaar <span class="txt-yellow">&euro; {{ (car.attrs.price * 0.8) | number_format(0,',','.') }},-</span></li>
+                    <li>Afschrijving na 3 jaar <span class="txt-yellow">&euro; {{ car.attrs.price | carCosts | number_format(2,',','.') }}</span></li>
+                {% else %}
+                    <li>&nbsp;</li>
+                    
+                    <li>Prijs <span class="txt-yellow">&euro; {{ car.attrs.price | number_format(0,',','.') }},-</span></li>
+                    {% if car.attrs.monthlyprice >0 %}
+						<li>Per maand v.a. <span class="txt-yellow">&euro; {{ car.attrs.monthlyprice | number_format(2,',','.') }}</span></li>
+                    {% else %}
+                        <li>&nbsp;</li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </a>
+</li>

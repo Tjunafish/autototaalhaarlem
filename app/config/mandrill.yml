@@ -1,0 +1,7 @@
+# config.yml
+
+hip_mandrill:
+    api_key: SDgVRucjZE0rjCJ5AJAKcw
+    default:
+        sender: "info@autoservicehaarlem.nl"
+        sender_name: "Auto Service Haarlem"

@@ -1,0 +1,175 @@
+
+<div class="container">
+         <h1 class="finance-title">Particuliere Financiering</h1>
+            <h2 class="form-title finance-subtitle ">Auto Krediet Plan kan uw financiering snel en transparant regelen.</br>Wij hanteren het motto:"U bepaalt hoeveel u betaalt!"</h2>
+        <div class="white-container">
+            <div class="row">
+              <h2 class="formTitle">Vul onderstaande formulier in en wij zullen binnen 24 uur reageren.</h2>
+              <form class="clearfix" id="finance-form" method="post" action="{{ path('api_finance_submit') }}">
+                  {{ form_widget(form._token) }}
+            <div class="formSuccess" style="display: none; height: 320px;">
+                <h2 class="formTitle succesTitle">Uw aanvraag</h2>
+            </div>
+                <div class="col-md-12 formBody"> 
+                    <div class="formTop clearfix">
+                         <input required name="finance_form[car]" placeholder="Auto:" class="form-control finance-control" value="">
+                         <input required name="finance_form[license]" placeholder="Kenteken:" class="form-control finance-control">
+                    </div>
+                  <div class="col1-2 formLeft">
+                    <input required name="finance_form[finance]" placeholder="Te financieren bedrag:" class="form-control finance-control" value="">
+                    <input required name="finance_form[name]" placeholder="Naam:" class="form-control finance-control" value="">
+                    <div class="phone-control">
+                        <input required name="finance_form[phone]" placeholder="Telefoon nummer:" class="form-control finance-control" value="">
+                    </div>
+                    <div class="email-control">
+                        <input required name="finance_form[email]" type="email" placeholder="Email:" class="form-control finance-control" value="">
+                    </div>
+                    <input name="finance_form[netto]" placeholder="Netto inkomen:" class="form-control finance-control" value="">                  
+                    <input name="finance_form[nettopartner]" placeholder="Netto inkomen partner:" class="form-control finance-control has-error">
+                    <input required name="finance_form[rent]" placeholder="Huur of hypotheeklasten:" class="form-control finance-control">
+                      <div class="form_error" style="display: none;">
+
+            </div>
+                  </div>
+         
+                  <div class="formRight">
+                         <section class="visible-md visible-lg">
+                            <div class="form-details">
+                                <p><span><img src="/images/orangecheck.png"></span>Financieringen</p>
+                                <p><span><img src="/images/orangecheck.png"></span>Financial Lease</p>
+                                <p><span><img src="/images/orangecheck.png"></span>50/50 deals</p>
+                                <p><span><img src="/images/orangecheck.png"></span>Uitgestelde betaling</p>
+                           
+                            </div>
+                        </section>
+                  </div>
+                </div>
+                </div>
+                  <div class="form-clearfix">
+                    <section class="visible-xs visible-sm">
+                            <div class="form-details">
+                                <div class="details-left">
+                                    <p><span><img src="/images/orangecheck.png" class="check-img"></span>Financieringen</p>
+                                    <p><span><img src="/images/orangecheck.png" class="check-img"></span>Financial Lease</p>
+                                </div>
+                                <div class="details-right">
+                                    <p><span><img src="/images/orangecheck.png" class="check-img"></span>50/50 deals</p>
+                                    <p><span><img src="/images/orangecheck.png" class="check-img"></span>Uitgestelde betaling</p>
+                                </div>
+                            </div>
+                        </section>
+                    <br>
+                    <hr>
+                    <input class="btn gradient-orange finance-form-btn submit-btn" type="submit" name="submit" value="Versturen">
+                      <h3 class="finance-btm-txt">Uw nieuwe auto. Zo dichtbij!</h3>
+                   </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    
+</div>                       
+
+<script type="text/javascript">
+    $(function() {
+        /** car sale form */
+        $('#finance-form').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function() {
+                $('#finance-form .form_submit').attr('disabled','disabled')
+                $('#finance-form .form_error').hide();
+            },
+            success: function(r) {
+                if(r.result == "ok") {
+                    $('#finance-form .formBody').hide();
+                    $('.finance-form-btn').hide();
+                    $('.formTitle').hide();
+                    $('.form-clearfix').hide();
+
+
+                    $('#finance-form .formSuccess').show();
+                    $('.succesTitle').show();
+
+                     $('.formSuccess').append('<div class=formTop><p><strong>Auto:</strong> '+r.car+'</p><p><strong>Kenteken: </strong>'+r.license+'</p>');
+                    $('.formSuccess').append('<div class="formLeft"><p><strong>Te financieren bedrag:</strong> €'+r.finance+'</p><p><strong>Naam: </strong>'+r.name+'</p><p><strong>Telefoonnummer: </strong>'+r.phone+'</p><p><strong>Email: </strong>'+r.email+'</p><p><strong>Netto inkomen: </strong>€'+r.netto+'</p><p><strong>Netto inkomen partner: </strong>€'+r.nettoPartner+'</p><p><strong>Huur of hypotheeklasten: </strong>€'+r.rent+'</p></div>');
+                    $('.formSuccess').append('<div class="formRight"><section class="visible-md visible-lg"><div class="form-details"><p><span><img src="/images/orangecheck.png"></span>Financieringen</p><p><span><img src="/images/orangecheck.png"></span>Financial Lease</p><p><span><img src="/images/orangecheck.png"></span>50/50 deals</p><p><span><img src="/images/orangecheck.png"></span>Uitgestelde betaling</p></div></section></div></div></div><div class="form-clearfix"><section class="visible-xs visible-sm"><div class="form-details"><div class="details-left"><p><span><img src="/images/orangecheck.png" class="check-img"></span>Financieringen</p><p><span><img src="/images/orangecheck.png" class="check-img"></span>Financial Lease</p></div><div class="details-right"><p><span><img src="/images/orangecheck.png" class="check-img"></span>50/50 deals</p><p><span><img src="/images/orangecheck.png" class="check-img"></span>Uitgestelde betaling</p></div></div></section></div>');
+                    $('.row').append('<hr>');
+                    
+
+                    googleConversionAction();
+                }
+                else if(r.result == "phonenok"){
+                                $('div.phone-control').addClass('has-error');
+                                $('div.email-control').removeClass('has-error');
+                                console.log('hoi2');
+                    
+                    $('#finance-form .form_error').html('<p style="color:red; margin: auto; text-align: center; margin-top: 20px;"> Niet alle velden zijn correct ingevuld</p>');
+                    $('#finance-form .form_error').show();
+                    /*for(i in r.errors) {
+                     for(a in r.errors[i]) {
+                     if(a<r.errors[i].length)
+                     $('#form-contact-'+ i +' .error').append('<img src="/bundles/vjpwebsite/img/icons/validatie_fout.svg"/> '+r.errors[i][a]+'<br/>');
+                     else
+                     $('#form-contact-'+ i +' .error').append('<img src="/bundles/vjpwebsite/img/icons/validatie_fout.svg"/> '+r.errors[i][a]);
+                     }
+
+                     }*/
+                    $('#finance-form .form_submit').removeAttr('disabled')
+
+                }
+                else
+
+                {
+                    for(i in r.errors) {
+                            var errortype = r.errors[i];
+                            if (errortype == "Ongeldig e-mailadres"){
+                                $('div.email-control').addClass('has-error');
+                               console.log('hoi');
+                            }
+
+                    }
+                    var phonenumber = r.phone;
+                    if(phonenumber){
+                      if (phonenumber.length < 9)
+                      {
+                           $('div.phone-control').addClass('has-error');
+                                console.log(phonenumber.length);
+                               
+                      }
+                      else{
+                           $('div.phone-control').removeClass('has-error');
+                      }
+                    }
+                    $('#finance-form .form_error').html('<p style="color:red; margin: auto; text-align: center; margin-top: 20px;"> Niet alle velden zijn correct ingevuld</p>');
+                    $('#finance-form .form_error').show();
+                    /*for(i in r.errors) {
+                     for(a in r.errors[i]) {
+                     if(a<r.errors[i].length)
+                     $('#form-contact-'+ i +' .error').append('<img src="/bundles/vjpwebsite/img/icons/validatie_fout.svg"/> '+r.errors[i][a]+'<br/>');
+                     else
+                     $('#form-contact-'+ i +' .error').append('<img src="/bundles/vjpwebsite/img/icons/validatie_fout.svg"/> '+r.errors[i][a]);
+                     }
+
+                     }*/
+                    $('#finance-form .form_submit').removeAttr('disabled')
+                }
+            },
+            error: function(r) {
+                $('#finance-form .form_error').html('Fout bij het versturen van de gegevens');
+                $('#finance-form .form_submit').removeAttr('disabled')
+            }
+        });
+
+        function googleConversionAction()
+        {
+            var google_conversion_id = 964965151;
+            var google_conversion_language = "nl";
+            var google_conversion_format = "2";
+            var google_conversion_color = "ffffff";
+            var google_conversion_label = "ZYMdCKnF0gkQn-aQzAM";
+            var google_remarketing_only = false;
+            //$.getScript("//www.googleadservices.com/pagead/conversion.js");
+            $("body").append('<img src="//www.googleadservices.com/pagead/conversion/' + google_conversion_id + '/?label=' + google_conversion_label + ' &guid=ON&script=0" />');
+        }
+    })
+</script>

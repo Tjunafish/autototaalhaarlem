@@ -1,0 +1,11 @@
+.floatright, .file_right {
+	position:relative;
+	bottom:22px;
+}
+#file_manage .floatright {
+	position:relative;
+	top:0;	
+}
+.file_browser,#file_browser { 
+	position:relative;
+}

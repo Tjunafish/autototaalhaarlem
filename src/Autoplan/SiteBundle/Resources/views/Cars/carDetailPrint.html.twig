@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{{ car.sortname }}</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/print.css">
+
+    <!--[if lt IE 10]>
+    <link rel="stylesheet" type="text/css" href="/assets/css/ie-style.css" />
+    <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body onLoad="javascript:window.print()">
+<main>
+    <div class="container">
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ car.sortname }}</h1>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {% for photo in car.photos %}
+                    {% if loop.first %}
+                        <img src="{{ vich_uploader_asset(photo, 'image')}}" class="img-responsive" alt="">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Kenmerken</h2>
+                <ul class="feature-list">
+                    <li><span>Merk</span> {{ car.carBrand }}</li>
+                    <li><span>Model</span> {{ car.carBrandModel }}</li>
+                    <li><span>Type</span> {{ car.type }}</li>
+                    <li><span>Carrosserie</span> {{ car.carChassis }} ({{ car.doors }} deurs)</li>
+                    <li><span>Transmissie</span> {{ car.transmission | transmissionTitle }} ({{ car.transmissionCount }})</li>
+                    <li><span>Kleur</span> {{ car.baseColor | capitalize }} {{ car.painttype }}</li>
+                    <li><span>KM stand</span> {{ car.kmcounter | number_format(0,',','.') }} km<span class="icon-km"></span></li>
+                    <li><span>Brandstof</span> {{ car.carFuel | fuelTitle }}</li>
+                    <li><span>Bouwjaar</span> {{ car.constructionyear }}</li>
+                    <li><span>Cil. inhoud</span> {{ car.cilinder }} cc</li>
+                    <li><span>Aantal cil.</span> {{ car.cilindercount }}</li>
+                    <li><span>Vermogen</span> {{ car.motorpower }} pk</li>
+                    <li><span>Topsnelheid</span> {{ car.topspeed }} km/u</li>
+                    <li><span>Interieur</span> {{ car.fabric }} ({{ car.fabricColor }})</li>
+                    <li><span>Energielabel</span> <span class="label">{{ car.energylabel }}</span></li>
+                    <li><span>Wegenbelasting</span> &euro; {{ car.taxmin }} - &euro; {{ car.taxmax }} p/kw</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Accessoires</h2>
+                <ul class="accessoireslist">
+                    {% for accessoire in car.accessoiresList %}
+                        <li>{{ accessoire }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Opmerkingen</h2>
+                {{ car.remarks | raw }}
+            </div>
+        </div>
+
+    </div>
+</main>
+<section id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h4>Contact</h4>
+                <div>
+                    <h5>{{ textBlock("contact-bedrijfsnaam") | raw}}</h5>
+                    <div>
+                        <div>{{ textBlock("contact-bedrijfsnaam") | raw}}</div>
+                        <div>
+                            {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}}
+                        </div>
+                    </div>
+                    <div>T {{ textBlock("contact-telefoon") | raw}}</div>
+                    <div>E {{ textBlock("contact-email") | raw}}</div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h4>Openingstijden</h4>
+                <ul>
+                    <li class="days">{{ textBlockTitle("tijden-mavr") | raw}}</li>
+                    <li class="time">{{ textBlock("tijden-mavr") | raw}}</li>
+                    <li class="days">{{ textBlockTitle("tijden-za") | raw}}</li>
+                    <li class="time">{{ textBlock("tijden-za") | raw}}</li>
+                    <li class="days">{{ textBlockTitle("tijden-zo") | raw}}</li>
+                    <li class="time">{{ textBlock("tijden-zo") | raw}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

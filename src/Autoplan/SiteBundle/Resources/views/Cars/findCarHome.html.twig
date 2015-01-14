@@ -1,0 +1,153 @@
+<form method="post" id="form-features" action="{{ path('site_search') }}">
+	<input type="hidden" name="searchBy" value="0">
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<select name="brand_id" id="brand_id" class="box-shadow-white">
+			<option>Selecteer Merk</option>
+			{% for brand in brands %}
+			<option value="{{ brand.id }}" {% if search.brand_id  == brand.id %}selected{% endif %}>{{ brand.title }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<select name="model_id" id="model_id" class="box-shadow-white">
+			<option>Selecteer model</option>
+			{% if models[search.brand_id] is defined %}
+				{% for model in models[search.brand_id] %}
+				<option value="{{ model.id }}" {% if search.model_id  == model.id %}selected{% endif %}>{{ model.title }}</option>
+				{% endfor %}
+			{% endif %}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<select name="kmcounter" class="box-shadow-white">
+			<option>Kilometer stand</option>
+			{% for km in range(20000,max_kmcounter,20000) %}
+			<option value="{{ km }}" {% if search.kmcounter == km %}selected{% endif %}>Tot {{ km | number_format(0,',','.') }} KM</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<select name="fuel_id" class="box-shadow-white">
+			<option>Selecteer brandstof</option>
+			{% for fuel in fuels %}
+			<option value="{{ fuel.id }}" {% if search.fuel_id == fuel.id %}selected{% endif %}>{{ fuel.title | fuelTitle }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<select name="year" class="box-shadow-white">
+			<option>Selecteer bouwjaar</option>
+			{% for year in min_year..max_year %}
+			<option value="{{ year }}" {% if search.year == year %}selected{% endif %}>Vanaf {{ year }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<select name="section" class="box-shadow-white" id="offer_selection">
+			<option value="">Complete aanbod</option>
+			<option value="0">Aanbod autoplan</option>
+			<option value="1">Aanbod ASH specials</option>
+		</select>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div id="find-car-list" class="btn-group btn-group">
+			<input id="search_chassis_id" type="hidden" name="chassis_id" value="{{ search.chassis_id }}"/>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 2 %}selected{% endif %}" id="icon-hatchback" data-id="2">Hatchback</a>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 3 %}selected{% endif %}" id="icon-stationwagen" data-id="3">Stationwagen</a>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 5 %}selected{% endif %}" id="icon-sedan" data-id="5">Sedan</a>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 4 %}selected{% endif %}" id="icon-coupe" data-id="4">Coup&eacute;</a>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 6 %}selected{% endif %}" id="icon-suv" data-id="6">SUV</a>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 7 %}selected{% endif %}" id="icon-mpv" data-id="7">MPV</a>
+			<a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 1 %}selected{% endif %}" id="icon-cabriolet" data-id="1">Cabriolet</a>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+		<input type="hidden" name="min_price" id="price_min_input" value="{{ search.min_price }}">
+		<input type="hidden" name="max_price" id="price_max_input" value="{% if search.max_price > 0 %}{{ search.max_price }}{% else %}{{ max_price }}{% endif %}">
+		<input id="price-slider" type="text" class="span2" value="" data-slider-min="0" data-slider-max="{{ max_price }}" data-slider-step="500" data-slider-value="[{{ search.min_price }},{% if search.max_price > 0 %}{{ search.max_price }}{% else %}{{ max_price }}{% endif %}]">
+		<div id="min-val-1" class="pull-left">&euro; {{ search.min_price | number_format(0,',','.') }},-</div>
+		<div id="max-val-1" class="pull-right">{% if search.max_price > 0 %}&euro; {{ search.max_price | number_format(0,',','.') }},-{% else %}&euro; {{ max_price | number_format(0,',','.') }},-{% endif %}</div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<input type="submit" class="gradient-green box-shadow-grey" value="Bekijk totale voorraad">
+	</div>
+</form>
+       
+
+<script type="text/javascript">
+
+    $(function() {
+        var models = {{ models_json | raw}};
+
+        $('#brand_id').on('change', function() {
+            $('#model_id').find('option')
+                    .remove()
+                    .end();
+
+            $('#model_id').append("<option>Selecteer model</option>");
+            if(models[$('#brand_id').val()] != undefined) {
+                $(models[$('#brand_id').val()]).each(function (key, value) {
+                    $('#model_id').append("<option value='"+value.id+"'>"+value.title+"</option>");
+                })
+            }
+        })
+
+        $("#price-slider").slider({
+        }).on('slide', function(ev){
+            $('#price_min_input').val(ev.value[0]);
+            $('#price_max_input').val(ev.value[1]);
+            $('#min-val-1').text("€ "+String(ev.value[0]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+            $('#max-val-1').text("€ "+String(ev.value[1]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+        })
+                .on('slideStop', function(ev) {
+                    $('#price_min_input').val(ev.value[0]);
+                    $('#price_max_input').val(ev.value[1]);
+                    $('#min-val-1').text("€ "+String(ev.value[0]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+                    $('#max-val-1').text("€ "+String(ev.value[1]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+                });
+
+        $("#price-slider2").slider({
+        }).on('slide', function(ev) {
+            $('#price_min_input2').val(ev.value[0]);
+            $('#price_max_input2').val(ev.value[1]);
+            $('#min-val-2').text("€ "+String(ev.value[0]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+            $('#max-val-2').text("€ "+String(ev.value[1]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+        })
+                .on('slideStop', function(ev) {
+                    $('#price_min_input').val(ev.value[0]);
+                    $('#price_max_input').val(ev.value[1]);
+                    $('#min-val-1').text("€ "+String(ev.value[0]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+                    $('#max-val-1').text("€ "+String(ev.value[1]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+                });
+
+        $('#carlist a').click(function (e) {
+            e.preventDefault()
+            $('#carlist a[href="#new"]').tab('show')
+            $('#carlist a[href="#offers"]').tab('show')
+            $('#carlist a[href="#popular"]').tab('show')
+            $('#carlist a[href="#specials"]').tab('show')
+        })
+
+        $('.cartype').click(function(e) {
+            e.preventDefault()
+
+            if($(this).hasClass('selected')) {
+                $('.cartype').removeClass('selected')
+                $('#search_chassis_id').val('');
+            } else {
+                $('.cartype').removeClass('selected')
+                $(this).addClass('selected');
+                $('#search_chassis_id').val($(this).data('id'));
+            }
+        })
+
+        $('#offer_selection').on('change', function() {
+            if( $(this).val() == 'aanbod-autoplan') {
+                $('#form-features').attr('action', '{{ path('site_offerings_autoplan') }}');
+            } else {
+                $('#form-features').attr('action', '{{ path('site_offerings_ash') }}');
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,32 @@
+parameters:
+#    autoplan_service.example.class: Autoplan\ServiceBundle\Example
+
+services:
+    autoplan.security.userencoder:
+        class: Autoplan\ServiceBundle\Security\UserEncoder
+
+    autoplan.security.authhandler:
+        class: Autoplan\ServiceBundle\Security\AuthenticationHandler
+        arguments: [@service_container]
+
+    autoplan.security.provider:
+        class: Autoplan\ServiceBundle\Security\UserProvider
+        arguments: [@service_container]
+
+    autoplan.sphinxsearch.search.api:
+        class: Autoplan\ServiceBundle\Search\Sphinxsearch
+        arguments: [%sphinx_host%,%sphinx_port%]
+
+    autoplan.search:
+        class: Autoplan\ServiceBundle\Search\AutoplanSearcher
+        arguments: [@service_container]
+
+    autoplan.twig:
+        class: Autoplan\ServiceBundle\Twig\AutoplanTwigExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+
+    autoplan.pdf:
+        class: Autoplan\ServiceBundle\PDF\PDFGenerator
+        arguments: [@service_container]

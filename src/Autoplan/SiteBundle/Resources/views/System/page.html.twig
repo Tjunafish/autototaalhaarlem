@@ -1,0 +1,204 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+            {% if (page.slug == 'financiering') or (page.slug == 'financial-lease') or (page.slug == 'disclaimer') or (page.slug == 'finance-form')  %}
+
+            {% else %}
+             <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+  
+    <main id="article">
+        {% if (page.slug == 'financiering') or (page.slug == 'finance-form') or (page.slug == 'disclaimer') %}
+
+        {% else %}
+        <section class="bg-blue visible-xs" id="naw-home-visual">
+            <div class="container">
+                <div class="row">
+                    {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | <a href="mailto:{{ textBlock("contact-email") | raw}}">{{ textBlock("contact-email") | raw}}</a>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {#<section id="small-breadcrumb" class="visible-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="small-breadcrumb-list">
+                            <li class="pull-left"><a href="#" title="Terug naar overzicht" id="icon-overview">Terug naar overzicht</a></li>
+                            <li class="pull-right"><a href="#" title="Volgende" id="icon-next">Volgende</a></li>
+                            <li class="pull-right"><a href="#" title="Vorige" id="icon-previous">Vorige</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>#}
+        <!--<section>-->
+
+ {% if page.slug == 'financiering' %}
+    <section class="visible-sm visible-md visible-lg">
+        <div class="container">
+            <h1 class="finance-title">Financieringen</h1>
+            <h2 class="finance-subtitle">Bekijk hier je mogelijkheden met Auto Krediet Plan</h2>
+            <div class="row" id="finance">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="margin-right: -20px;">
+                    <div id="finance">
+                        <div class="holder">
+                            <h2 class="financeTitle">ZAKELIJKE FINANCIERINGEN</h2>
+                            <h3 class="financesubTitle">( Financial lease )</h3>
+                            <img src="/images/particulier.jpg" alt="AutoPlan" class="img-responsive">
+                            <ul id="carlist" class="nav nav-tabs pull-left">
+                                <li class="active finance-button"><a href="/financial-lease" class="finance-link">KLIK HIER</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="margin-right: -20px;">
+                    <div class="holder">
+                          <h2 class="financeTitle">PARTICULIERE FINANCIERINGEN</h2>
+                             <h3 class="financesubTitle">U bepaalt hoeveel u betaalt!</h3>
+                        <img src="/images/zakelijk.jpg" alt="AutoPlan" class="img-responsive">
+                        <ul id="carlist" class="nav nav-tabs pull-left">
+                            <li class="active finance-button"><a href="/finance-form" class="finance-link">KLIK HIER</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="visible-xs">
+        <div class="container-finance-mobile">
+            <h1 class="finance-title">Financiëringen</h1>
+            <h2 class="finance-subtitle">Bekijk hier je mogelijkheden met Auto Krediet Plan</h2>
+            <div id="finance">
+                <div class="holder finance-mobile" style="background-image:url('/images/02_Financering_mobielparticulier.jpg');">
+                    <h2 class="financeTitle">ZAKELIJKE FINANCIERINGEN</h2>
+                    <h3 class="financesubTitle">( Financial lease )</h3>
+                    <!-- <img src="/images/02_Financering_mobielparticulier.jpg" alt="AutoPlan" class="img-responsive"> -->
+                    <ul id="carlist" class="financeAction nav nav-tabs pull-left">
+                        <li class="active finance-button"><a href="/financial-lease" class="finance-link">KLIK HIER</a></li>
+                    </ul>
+                </div>
+        
+                <div class="holder finance-mobile" style="background-image:url('/images/02_Financering_mobielzakelijk2.jpg');">
+                    <h2 class="financeTitle">PARTICULIERE FINANCIERINGEN</h2>
+                    <h3 class="financesubTitle">U bepaalt hoeveel u betaalt!</h3>
+                    <!-- <img src="/images/02_Financering_mobielzakelijk2.jpg" alt="AutoPlan" class="img-responsive"> -->
+                    <ul id="carlist" class="financeAction nav nav-tabs pull-left">
+                        <li class="active finance-button"><a href="/finance-form" class="finance-link">KLIK HIER</a></li>
+                    </ul>
+                </div>
+
+            </div>
+          
+        </div>
+    </section>
+        {% elseif page.slug == 'financial-lease' %}
+
+            <h1 class="finance-title lease-title" style="margin-bottom: 50px;">Zakelijke financiëring</h1>
+            <div class="iframe-container">
+                <iframe src="http://www.financiallease.nl/cavExtern/index.php?cavAcc=5886" style="min-width:650px;height:2550px;display:block;margin:0 auto; margin-bottom: 50px;" scrolling="yes" id="financial-lease-frame"></iframe>
+            </div>
+        {% elseif page.slug == 'finance-form' %}
+         {{ render(controller('AutoplanSiteBundle:System:financeForm')) }}
+     </div>
+        {% else  %}
+        
+        
+            <div class="container">
+                {% if (page.slug != 'disclaimer') %}
+                    <div class="row visible-sm visible-md visible-lg">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <ul id="tabautoplan" class="nav nav-tabs">
+                                <li {% if page.slug == 'wat-is-autoplan' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}" title="Wat is AutoPlan">Wat is AutoPlan</a></li>
+                                <li {% if page.slug == 'wie-zijn-wij' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'wie-zijn-wij'}) }}" title="Wie zijn wij">Wie zijn wij</a></li>
+                                <li {% if page.slug == 'veelgestelde-vragen' %}class="active"{% endif %}><a href="{{ path('site_faq') }}" title="Veelgestelde vragen">Veel gestelde vragen</a></li>
+                                <li {% if page.slug == 'algemene-voorwaarden' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'algemene-voorwaarden'}) }}" title="Algemene voorwaarden">Algemene voorwaarden</a></li>
+                                <li {% if page.slug == 'disclaimer' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer">Disclaimer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                <div class="row borderbottom" id="whatis">
+                    <div class="{% if page.showrightblock %}col-xs-12 col-sm-6 col-md-8 col-lg-8{% else %}col-xs-12 col-sm-12 col-md-12 col-lg-12{% endif %}">
+                        <div class="borderbottom visible-xs" style="height: 60px;margin-bottom: 10px">
+                            <h2 class="txt-header-mobile">{{ page.title }}</h2>
+                            <hr class="lineborder">
+                        </div>
+                        <div class="visible-sm visible-md visible-lg">
+                            <h2 class="txt-blue">{{ page.title }}</h2>
+                        </div>
+
+                        {{ page.content | raw }}
+                        {% if page.id == 6 %}
+                            <h2 class="txt-blue" style="margin-bottom: 20px;font-size:32px">Bekijk onze film!</h2>
+                            <iframe width="560" height="315" src="//www.youtube.com/embed/O6Zuo33rhZI" frameborder="0" allowfullscreen></iframe>
+                        {% endif %}
+                        <hr class="lineborder">
+                    </div>
+                   <!--  {% if page.showrightblock %}
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="gradient-blue" id="certainties">
+                                <div class="padding">
+                                    <h2 class="txt-yellow">Onze 8 zekerheden</h2>
+                                    <ul class="certainties-list">
+                                        {{ textBlock("8zekerheden") | raw}}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="retour-certainties visible-sm visible-md visible-lg">
+                                <div class="retour80">
+                                    <img src="/images/80-retour.png" alt="" class="img-responsive">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %} -->
+                </div>
+                {#<div class="row borderbottom">
+                    <h2 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-blue">Veel gestelde vragen</h2>
+                    <div id="faq">
+                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h3 class="txt-blue">Hoe werkt AutoPlan Nederland precies?</h3>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis in mauris eget aliquam. Nulla facilisi. Sed lacus ante, molestie nec fringilla ac, gravida sit amet turpis. Nunc libero elit, venenatis sagittis lorem a, sollicitudin tempor quam. Pellentesque non mauris sed sem mattis hendrerit. Morbi at scelerisque turpis. Aliquam dui purus, ultricies non iaculis vel, dapibus interdum massa.
+                        </article>
+                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h3 class="txt-blue">Wat zijn de standaard kosten?</h3>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis in mauris eget aliquam. Nulla facilisi. Sed lacus ante, molestie nec fringilla ac, gravida sit amet turpis. Nunc libero elit, venenatis sagittis lorem a, sollicitudin tempor quam. Pellentesque non mauris sed sem mattis hendrerit. Morbi at scelerisque turpis. Aliquam dui purus, ultricies non iaculis vel, dapibus interdum massa.
+                        </article>
+                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h3 class="txt-blue">Kan ik ook mijn oude auto inruilen?</h3>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis in mauris eget aliquam. Nulla facilisi. Sed lacus ante, molestie nec fringilla ac, gravida sit amet turpis. Nunc libero elit, venenatis sagittis lorem a, sollicitudin tempor quam. Pellentesque non mauris sed sem mattis hendrerit. Morbi at scelerisque turpis. Aliquam dui purus, ultricies non iaculis vel, dapibus interdum massa.
+                        </article>
+                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h3 class="txt-blue">Hoe lang bestaan jullie al?</h3>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis in mauris eget aliquam. Nulla facilisi. Sed lacus ante, molestie nec fringilla ac, gravida sit amet turpis. Nunc libero elit, venenatis sagittis lorem a, sollicitudin tempor quam. Pellentesque non mauris sed sem mattis hendrerit. Morbi at scelerisque turpis. Aliquam dui purus, ultricies non iaculis vel, dapibus interdum massa.
+                        </article>
+                    </div>
+                </div>#}
+                {% else %}
+                <div class="disclaimer-mobile">
+                    <div class="white-container">
+                        <h2 class="disclaimer-title">{{ page.title }}</h2>
+                        {{ page.content | raw }}
+                        <br />
+                        <hr>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        {% endif %}
+        <!--</section>-->
+    </main>
+{% endblock %}

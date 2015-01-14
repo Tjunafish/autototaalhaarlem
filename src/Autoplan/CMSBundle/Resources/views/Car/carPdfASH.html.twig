@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Printen</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://www.autoservicehaarlem.nl/assets/css/reset.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="http://www.autoservicehaarlem.nl/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://www.autoservicehaarlem.nl/assets/css/autokaart.css?{{ "now" | date("U")}}">
+
+</head>
+
+<body>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <img src="http://www.autoservicehaarlem.nl/images/autokaart/logo-ash.png" alt="" class="img-responsive">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="price">
+                    <span class="total">Prijs: </span><span class="total_value">&euro; {{ car.price | number_format(0,',','.') }},-</span>
+                    {% if car.monthlyprice >0 %}
+                        <span class="monthly">P/m v.a.</span> <span class="monthly_value">&euro; {{ car.monthlyprice | number_format(2,',','.') }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ car.sortname }}</h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="feature-list">
+                    <li><span>Model:</span> {{ car.carBrandModel }}</li>
+                    <li><span>Brandstof:</span> {{ car.carFuel | fuelTitle }}</li>
+                    <li><span>Bouwjaar:</span> {{ car.constructionyear }}</li>
+                    <li><span>KM stand:</span> {{ car.kmcounter | number_format(0,',','.') }} km</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Opties</h2>
+                <ul class="options">
+                    {% for accessoire in car.accessoiresList %}
+                        <li><span>{{ accessoire }}</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <img src="http://www.autoservicehaarlem.nl/images/autokaart/logo-nap.png" alt="" class="img-responsive">
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

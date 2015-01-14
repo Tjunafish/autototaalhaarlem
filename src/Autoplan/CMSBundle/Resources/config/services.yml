@@ -1,0 +1,12 @@
+parameters:
+#    autoplan_cms.example.class: Autoplan\CMSBundle\Example
+
+services:
+#    autoplan_cms.example:
+#        class: %autoplan_cms.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    autoplan.admin.form.type.image_upload:
+        class: Autoplan\CMSBundle\Form\Type\ImageUploadType
+        tags:
+            - { name: form.type, alias: autoplan_image_upload }

@@ -1,0 +1,51 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#carousel-example-generic2.carousel {
+    height: 310px;
+    margin-bottom: 60px;
+}
+
+#carousel-example-generic2 .carousel-caption {
+    z-index: 10;
+}
+#carousel-example-generic2  .item {
+    height: 310px;
+	
+	-webkit-transition: 0.6s ease-in-out left!important; 
+		-moz-transition: 0.6s ease-in-out left!important; 
+		-ms-transition: 0.6s ease-in-out left!important; 
+		-o-transition: 0.6s ease-in-out left!important; 
+		transition: 0.6s ease-in-out left!important;
+}
+#carousel-example-generic2 .carousel-inner > .item > img {
+    /*height: 310px;*/
+    left: 0;
+    min-width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+#carousel-example-generic2 .carousel-caption {
+	left:45%;
+	right:15%; }
+
+
+
+
+/* Extra small */
+@media(max-width:767px){
+	
+	.carousel { height: 415px; }
+	.carousel .item { height: 415px; }
+	.carousel-inner > .item > img { height: 415px; }
+	
+	 }
+
+@media(min-width:768px) and (max-width:991px){}
+
+@media(min-width:992px) and (max-width:1199px){}
+
+@media(min-width:1200px){
+
+	}

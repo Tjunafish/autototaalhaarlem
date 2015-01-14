@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'Source Sans Pro', sans-serif;
+    /*src: url('impact-webfont.eot');
+    src: url('impact-webfont.eot?#iefix') format('embedded-opentype'),
+         url('impact-webfont.woff') format('woff'),
+         url('impact-webfont.ttf') format('truetype'),
+         url('impact-webfont.svg#ImpactRegular') format('svg');*/
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#container > h2,
+#nav li a,
+input[type=text],
+textarea,
+#slider p,
+#papertrail,
+.options,
+form.tell_friend,
+form.taxatie,
+#search_adv > h2,
+#search_adv label,
+.bigblock form p,
+.bigblock.center > p,
+#block_left h2,
+#block_left p,
+.label p,
+.label > input[type=submit],
+.label .newsletter input[type=submit],
+.car.block .label > p,
+.car.list .label > p,
+.car.detail .label > p,
+.car.list .details .col,
+.car.detail .details .col,
+.car > p,
+.car .details > p,
+.car.detail .description h2,
+.car.detail form.contact h2,
+.car.detail form.contact input[type=submit],
+.tell_friend input[type=submit],
+.taxatie input[type=submit],
+.car.detail .description .certificates,
+.more_info,
+.nofound,
+#contact,
+h3.return,
+#contact input[type=submit],
+#contact_right,
+#contact_right h2,
+#contact_right a,
+.mediablock p,
+#yellow_block,
+#spotlight,
+.person h2,
+.pack h2,
+.pack .price,
+#home_foot,
+#footer_info,
+#footer .col h2 {
+	font-family: 'Source Sans Pro', sans-serif;
+}

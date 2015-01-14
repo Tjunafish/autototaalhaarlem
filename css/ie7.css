@@ -1,0 +1,84 @@
+#search_adv input[type=text] {
+	padding-bottom:			0;
+}
+
+.control img {
+	bottom:					5px;
+	margin-left:			2px;
+}
+
+.options .divider {
+	top:					-3px;
+}
+
+.options .long.left {
+	position:				relative;
+	top:					5px;
+}
+
+.options .left .print img,
+.detail.car form.contact h2 img {
+	position:				relative;
+	bottom:					5px;
+}
+
+#footer .col img {
+	bottom:					15px;
+}
+
+#home_foot .big img {
+	top:					-2px;
+	left:					4px;
+}
+
+.label > input[type=submit].left {
+	left:					-60px;
+}
+
+#header,
+.relative,
+.bigblock.center {
+	z-index:				2;
+}
+
+form.taxatie {
+	padding:				0;
+}
+
+form.taxatie h2 {
+	padding:				20px 0 0 20px;
+}
+
+form.tell_friend .arrow {
+	top:					-46px;
+}
+
+form.taxatie input[type=submit],
+form.tell_friend input[type=submit] {
+	margin-left:			180px;
+	width:					auto;
+}
+
+#footer {
+	width:					931px;
+}
+
+.detail.car form.contact input[type=submit] {
+	width:					220px;
+	right:					0;
+}
+
+.detail.car .description .certificates {
+	bottom:					-107px;
+}
+
+.detail.car .description .certificates img {
+	position:				relative;
+	bottom:					20px;
+	left:					15px;
+}
+
+.list.car .details {
+	top:					-115px;
+	margin-top:				0;
+}

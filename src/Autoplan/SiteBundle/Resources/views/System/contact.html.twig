@@ -1,0 +1,96 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block content %}
+    <main>
+        <section class="bg-blue visible-xs" id="naw-home-visual">
+            <div class="container">
+                <div class="row">
+                    {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="visible-sm visible-md visible-lg">
+            <div id="map-canvas"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 nopadding" id="contact-img">
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" id="contact-btn">
+                        <a class="btn btn-block gradient-green" title="Plan je route" href="https://www.google.nl/maps/dir//Auto+Service+Haarlem,+Munterslaan+2,+2014+KW+Haarlem/@52.3837918,4.6428787,13z/data=!3m1!4b1!4m12!1m3!3m2!1s0x0:0x99659fe60c80a993!2sAuto+Service+Haarlem!4m7!1m0!1m5!1m1!1s0x47c5ef2f154ef727:0x99659fe60c80a993!2m2!1d4.611308!2d52.366053?hl=nl" target="_blank">Plan je route</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact-mobile" class="visible-xs">
+            <div class="container" style="margin-top: 20px">
+                <div class="">
+                    <div itemscope itemtype="http://schema.org/Organization">
+						<a target="_blank" href="https://www.google.nl/maps/dir//Auto+Service+Haarlem,+Munterslaan+2,+2014+KW+Haarlem/@52.3837918,4.6428787,13z/data=!3m1!4b1!4m12!1m3!3m2!1s0x0:0x99659fe60c80a993!2sAuto+Service+Haarlem!4m7!1m0!1m5!1m1!1s0x47c5ef2f154ef727:0x99659fe60c80a993!2m2!1d4.611308!2d52.366053?hl=nl" title="Plan je route" class="btn gradient-green">Plan je route</a>
+                        <div itemprop="name">{{ textBlock("contact-bedrijfsnaam") | raw}}</div>
+                        <div class="adr">
+                            <div itemprop="street-address">{{ textBlock("contact-adres") | raw}}</div>
+                            <div class="pdbt30">
+                                <span itemprop="postal-code">{{ textBlock("contact-postcode") | raw}}</span> <span itemprop="locality">{{ textBlock("contact-plaats") | raw}}</span>
+                            </div>
+                        </div>
+                        <div><span itemprop="telephone"><a itemprop="email" href="tel:{{ textBlock("contact-telefoon") | raw}}">{{ textBlock("contact-telefoon") | raw}}</a></span></div>
+                        <div class="pdbt30"><a itemprop="email" href="mailto:{{ textBlock("contact-email") | raw}}">{{ textBlock("contact-email") | raw}}</a></div>
+                    </div>
+                </div>
+                <div class="">
+                    <h4>Openingstijden</h4>
+                    <ul>
+                        <li class="days txt-blue">{{ textBlockTitle("tijden-mavr") | raw}}</li>
+                        <li class="time">{{ textBlock("tijden-mavr") | raw}}</li>
+                        <li>&nbsp;</li>
+                        <li class="days txt-blue">{{ textBlockTitle("tijden-za") | raw}}</li>
+                        <li class="time">{{ textBlock("tijden-za") | raw}}</li>
+                        <li>&nbsp;</li>
+                        <li class="days txt-blue">{{ textBlockTitle("tijden-zo") | raw}}</li>
+                        <li class="time">{{ textBlock("tijden-zo") | raw}}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block footer_scripts %}
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script>
+        var map;
+        function initialize() {
+            $('#map-canvas').height($('#map-canvas').parent().parent().parent().height());
+            var myLatlng = new google.maps.LatLng(52.366230, 4.611325);
+            var mapOptions = {
+                zoom: 16,
+                center: myLatlng,
+                mapTypeControl: false,
+                panControl: true,
+                zoomControl: true,
+                streetViewControl: false
+            }
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Auto Service Haarlem'
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+        google.maps.event.addDomListener(window, "resize", function() {
+            $('#map-canvas').height($('#map-canvas').parent().parent().parent().height());
+            var center = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(center);
+
+        });
+
+
+
+    </script>
+{% endblock %}

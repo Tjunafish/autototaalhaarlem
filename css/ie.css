@@ -1,0 +1,58 @@
+#search 					input[type=text],
+.label 		.newsletter 	input[type=text],
+.car.detail form.contact	input[type=text],
+#contact 					input[type=text],
+#contact 					textarea,
+.bigblock 					input[type=text],
+.tell_friend 				input[type=text],
+.tell_friend 				textarea,
+.taxatie					input[type=text],
+.taxatie					textarea {
+	border:					1px solid #ccc;
+	padding:				5px 34px 5px 14px;
+}
+
+.full {
+	background:				url(../img/trans.png);
+}
+
+form.tell_friend,
+form.taxatie {
+	border:					1px solid #ccc;
+}
+
+a {
+	cursor:					pointer;
+}
+
+.label p {
+	position:				relative;
+	z-index:				1;
+}
+
+#search_adv .label > p img {
+	right:					auto;
+}
+
+#footer .col img {
+	bottom:					-120px;
+}
+
+.taxatie input[type=submit],
+#contact input[type=submit],
+.tell_friend input[type=submit] {
+	padding-right:			5px;
+}
+
+#contact textarea {
+	width:					477px;
+}
+
+.detail.car form.contact input[type=text] {
+	width:					215px;
+}
+
+.detail.car form.contact textarea {
+	width:					536px;
+	border:					1px solid #ccc;
+}

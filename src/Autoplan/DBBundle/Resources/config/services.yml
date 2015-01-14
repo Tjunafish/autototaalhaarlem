@@ -1,0 +1,7 @@
+parameters:
+#    autoplan_db.example.class: Autoplan\DBBundle\Example
+
+services:
+#    autoplan_db.example:
+#        class: %autoplan_db.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

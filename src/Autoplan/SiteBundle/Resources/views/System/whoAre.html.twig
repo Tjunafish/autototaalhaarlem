@@ -1,0 +1,13 @@
+<div class="row borderbottom" id="whoare">
+    <h2 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-blue">Wie zijn wij</h2>
+    <div id="who-are-list">
+        {% for employee in employees %}
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+            <figure><img src="{{ vich_uploader_asset(employee, 'image') | apply_filter('employee_image')}}" alt="" class="img-responsive"></figure>
+            <h3>{{ employee.name }}</h3>
+            {{ employee.position }}<br>
+            {{ employee.tagline }}
+        </div>
+        {% endfor %}
+    </div>
+</div>

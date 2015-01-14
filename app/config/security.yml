@@ -1,0 +1,37 @@
+security:
+    encoders:
+        Autoplan\DBBundle\Entity\User:
+            id: autoplan.security.userencoder
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        admin:
+            id: autoplan.security.provider
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        backoffice:
+            pattern:  ^/cms
+            provider: admin
+            anonymous:  ~
+            form_login:
+                login_path:  admin_login
+                check_path:  admin_login_check
+                default_target_path:    /cms/autos
+                success_handler: autoplan.security.authhandler
+                failure_handler: autoplan.security.authhandler
+            logout:
+                path:   /cms/logout
+                target: /cms/login
+
+    access_control:
+        - { path: ^/cms/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cms/pdf_ash_footer, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cms/pdf_autoplan_footer, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cms, roles: ROLE_ADMIN }

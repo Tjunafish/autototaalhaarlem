@@ -1,0 +1,298 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block header_css %}
+    <!--BEGIN ONLY ON HOMEPAGE-->
+    <link href="/assets/css/animate.min.css" rel="stylesheet">
+    <link href="/assets/css/bounceInDown.css" rel="stylesheet">
+    <link href="/assets/css/bounceInUp.css" rel="stylesheet">
+    <!--END ONLY ON HOMEPAGE-->
+
+{% endblock %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+					<div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+					</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 visible-md visible-lg image-holder">
+                                {#<img src="/images/logo-autoplan2.png" class="img-responsive logo-ap-offerings" alt="">#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-blue visible-xs" id="naw-home-visual">
+        <div class="container">
+            <div class="row">
+                {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-grey">
+        <div class="container" style="padding-top: 15px;padding-bottom:15px">
+			<div class="row" id="section-quick-search" {% if search.searchBy != 2%}style="display: none"{% endif %}>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 nopadding">
+                    <h1>Zoekresultaten</h1>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <ul id="quick-search" class="nav nav-tabs pull-right">
+                        <li>
+                            <form action="{{ path('site_search') }}" id="search" method="post">
+                                <input type="hidden" value="2" name="searchBy">
+                                <input type="text" placeholder="Snel zoeken..." value="{{ search.search_query }}" name="search_query"><input type="submit" value="zoeken">
+                            </form>
+                        </li>
+                        <li><a onclick="return showSearch();" id="icon-blue-arrow" title="Uitgebreid zoeken" href="#">Uitgebreid zoeken</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <section id="find-car" {% if search.searchBy == 2%}style="display: none"{% endif %}>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                <ul id="tabsearch" class="nav nav-tabs">
+                                    <li {% if search.searchBy != 1 %}class="active"{% endif %}><a data-toggle="tab" href="#features" title="Kenmerken">Kenmerken</a></li>
+                                    <li {% if search.searchBy == 1 %}class="active"{% endif %}><a data-toggle="tab" href="#mode" title="Vorm">Vorm</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane {% if search.searchBy != 1 %}active{% endif %}" id="features">
+                                        <form method="post" class="form-features-search" id="form-features" action="{{ path('site_search') }}">
+                                            <input type="hidden" name="searchBy" value="0">
+                                            <h2 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-blue txt-shadow-white">Vind hier je nieuwe auto</h2>
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <select name="brand_id" id="brand_id">
+                                                    <option>Selecteer Merk</option>
+                                                    {% for brand in brands %}
+                                                        <option value="{{ brand.id }}" {% if search.brand_id  == brand.id %}selected{% endif %}>{{ brand.title }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <select name="model_id" id="model_id">
+                                                    <option>Selecteer model</option>
+                                                    {% if models[search.brand_id] is defined %}
+                                                        {% for model in models[search.brand_id] %}
+                                                            <option value="{{ model.id }}" {% if search.model_id  == model.id %}selected{% endif %}>{{ model.title }}</option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <select name="kmcounter">
+                                                    <option>Kilometer stand</option>
+                                                    {% for km in range(20000,max_kmcounter,20000) %}
+                                                        <option value="{{ km }}" {% if search.kmcounter == km %}selected{% endif %}>Tot {{ km | number_format(0,',','.') }} KM</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <select name="fuel_id">
+                                                    <option>Selecteer brandstof</option>
+                                                    {% for fuel in fuels %}
+                                                        <option value="{{ fuel.id }}" {% if search.fuel_id == fuel.id %}selected{% endif %}>{{ fuel.title | fuelTitle }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <select name="year">
+                                                    <option>Selecteer bouwjaar</option>
+                                                    {% for year in min_year..max_year %}
+                                                        <option value="{{ year }}" {% if search.year == year %}selected{% endif %}>Vanaf {{ year }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div id="find-car-list" class="btn-group btn-group">
+                                                    <input id="search_chassis_id" type="hidden" name="chassis_id" value="{{ search.chassis_id }}"/>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 2 %}selected{% endif %}" id="icon-hatchback" data-id="2">Hatchback</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 3 %}selected{% endif %}" id="icon-stationwagen" data-id="3">Stationwagen</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 5 %}selected{% endif %}" id="icon-sedan" data-id="5">Sedan</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 4 %}selected{% endif %}" id="icon-coupe" data-id="4">Coup&eacute;</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 6 %}selected{% endif %}" id="icon-suv" data-id="6">SUV</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 7 %}selected{% endif %}" id="icon-mpv" data-id="7">MPV</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 1 %}selected{% endif %}" id="icon-cabriolet" data-id="1">Cabriolet</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                                <input type="hidden" name="min_price" id="price_min_input" value="{{ search.min_price }}">
+                                                <input type="hidden" name="max_price" id="price_max_input" value="{{ search.max_price }}">
+                                                <input id="price-slider" type="text" class="span2" value="" data-slider-min="0" data-slider-max="{{ max_price }}" data-slider-step="500" data-slider-value="[{{ search.min_price }},{% if search.max_price > 0 %}{{ search.max_price }}{% else %}{{ max_price }}{% endif %}]">
+                                                <div id="min-val-1" class="pull-left">&euro; {{ search.min_price | number_format(0,',','.') }},-</div>
+                                                <div id="max-val-1" class="pull-right">{% if search.max_price > 0 %}&euro; {{ search.max_price | number_format(0,',','.') }},-{% else %}&euro; {{ max_price | number_format(0,',','.') }},-{% endif %}</div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <input type="submit" class="gradient-green" value="Bekijk auto&rsquo;s">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane {% if search.searchBy == 1 %}active{% endif %}" id="mode">
+                                        <form class="form-features-search" method="post" id="form-features2" action="{{ path('site_search') }}">
+                                            <input type="hidden" name="searchBy" value="1">
+                                            <h2 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-blue txt-shadow-white">Vind hier je nieuwe auto</h2>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div id="find-car-list" class="btn-group btn-group">
+                                                    <input id="search_chassis_id" type="hidden" name="chassis_id" value="{{ search.chassis_id }}"/>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 2 %}selected{% endif %}" id="icon-hatchback" data-id="2">Hatchback</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 3 %}selected{% endif %}" id="icon-stationwagen" data-id="3">Stationwagen</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 5 %}selected{% endif %}" id="icon-sedan" data-id="5">Sedan</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 4 %}selected{% endif %}" id="icon-coupe" data-id="4">Coup&eacute;</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 6 %}selected{% endif %}" id="icon-suv" data-id="6">SUV</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 7 %}selected{% endif %}" id="icon-mpv" data-id="7">MPV</a>
+                                                    <a href="#" role="button" class="cartype btn btn-default {% if search.chassis_id == 1 %}selected{% endif %}" id="icon-cabriolet" data-id="1">Cabriolet</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                                <input type="hidden" name="min_price" id="price_min_input2" value="{{ search.min_price }}">
+                                                <input type="hidden" name="max_price" id="price_max_input2" value="{{ search.max_price }}">
+                                                <input id="price-slider2" type="text" class="span2" value="" data-slider-min="0" data-slider-max="{{ max_price }}" data-slider-step="500" data-slider-value="[{{ search.min_price }},{% if search.max_price > 0 %}{{ search.max_price }}{% else %}{{ max_price }}{% endif %}]">
+                                                <div id="min-val-2" class="pull-left">&euro; {{ search.min_price | number_format(0,',','.') }},-</div>
+                                                <div id="max-val-2" class="pull-right">{% if search.max_price > 0 %}&euro; {{ search.max_price | number_format(0,',','.') }},-{% else %}&euro; {{ max_price | number_format(0,',','.') }},-{% endif %}</div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <input type="submit" class="gradient-green" value="Bekijk onze auto&rsquo;s">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 search-aside">
+                                <form method="post" id="form-quicksearch" class="pull-right" action="{{ path('site_search') }}">
+                                    <input type="hidden" name="searchBy" value="2">
+                                    <input name="search_query" type="text" value="{{ search.search_query }}" placeholder="Snel zoeken..."><input type="submit" value="zoeken">
+                                </form>
+                                <div id="caroussel-quicksearch" class="carousel slide visible-md visible-lg" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#caroussel-quicksearch" data-slide-to="0" class="active"></li>
+                                        <li data-target="#caroussel-quicksearch" data-slide-to="1"></li>
+                                        <li data-target="#caroussel-quicksearch" data-slide-to="2"></li>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        {% for car in new_cars %}
+                                            <div class="item {% if loop.first %}active{% endif %}">
+                                                <a href="{{ carUrl(car.attrs.section, car.attrs.brand_id_slug, car.attrs.sortname|slugify, car.attrs.object_id) }}">
+                                                    <img src="{{ car.attrs.image_url }}" alt="" width="360px">
+                                                    <div class="carousel-caption gradient-red">
+                                                        {{ car.attrs.sortname | tinyString(20) }} <span class="price">&euro; {{ car.attrs.price | number_format(0,',','.') }},-</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    {% if searched %}
+        <section id="stock" class="bg-grey">
+        <div class="container">
+        <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <ul id="stocklist">
+            {{ render(controller('AutoplanSiteBundle:Cars:carResults')) }}
+        </ul>
+        </div>
+    {% endif %}
+
+    {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a class="btn btn-block btn-default" href="#">Laad meer auto&rsquo;s</a>
+    </div>#}
+    </div>
+    </div>
+    </section>
+
+    <div class="visible-sm visible-md visible-lg" id="pagenavigation">
+        <div id="pagenav" style="margin-bottom: 220px">
+            <div id="page-top"><a href="#top" title="Naar boven">Top</a></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+
+<script src="/assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+
+            var models = {{ models_json | raw}};
+
+            $('#brand_id').on('change', function() {
+                $('#model_id').find('option')
+                        .remove()
+                        .end();
+
+                $('#model_id').append("<option>Selecteer model</option>");
+                if(models[$('#brand_id').val()] != undefined) {
+                    $(models[$('#brand_id').val()]).each(function (key, value) {
+                        $('#model_id').append("<option value='"+value.id+"'>"+value.title+"</option>");
+                    })
+                }
+            })
+
+            $("#price-slider").slider({
+            }).on('slide', function(ev){
+                $('#price_min_input').val(ev.value[0]);
+                $('#price_max_input').val(ev.value[1]);
+                $('#min-val-1').text("€ "+String(ev.value[0]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+                $('#max-val-1').text("€ "+String(ev.value[1]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+            });
+
+            $("#price-slider2").slider({
+            }).on('slide', function(ev) {
+                $('#price_min_input2').val(ev.value[0]);
+                $('#price_max_input2').val(ev.value[1]);
+                $('#min-val-2').text("€ "+String(ev.value[0]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+                $('#max-val-2').text("€ "+String(ev.value[1]).replace(/([0-9]{3})$/, '.$1').replace(/([0-9]{3})\.([0-9]{3})$/, '.$1.$2').replace(/^\./, '') + ",-");
+            });
+
+            $('#carlist a').click(function (e) {
+                e.preventDefault()
+                $('#carlist a[href="#new"]').tab('show')
+                $('#carlist a[href="#offers"]').tab('show')
+                $('#carlist a[href="#popular"]').tab('show')
+                $('#carlist a[href="#specials"]').tab('show')
+            })
+
+            $('.cartype').click(function(e) {
+                e.preventDefault()
+
+                if($(this).hasClass('selected')) {
+                    $('.cartype').removeClass('selected')
+                    $('#search_chassis_id').val('');
+                } else {
+                    $('.cartype').removeClass('selected')
+                    $(this).addClass('selected');
+                    $('#search_chassis_id').val($(this).data('id'));
+                }
+            })
+
+        });
+
+    </script>
+
+{% endblock %}

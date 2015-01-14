@@ -1,0 +1,68 @@
+<h4>Nieuwsbrief</h4>
+<form id="form-newsletter" method="post" action="{{ path('api_newsletter_submit') }}">
+    {{ form_widget(form._token) }}
+    <div class="form_error" style="display: none">
+
+    </div>
+    <div class="formSuccess" style="display: none; height: 300px">
+        <p>Bedankt voor uw inschrijving, deze is verwerkt.</p>
+    </div>
+    <div class="formBody">
+        <input name="newsletter_form[name]" type="text" placeholder="Je naam" value="" required="">
+        <input name="newsletter_form[email]" type="email" placeholder="Je e-mailadres" value="" required="">
+        <input type="submit" class="gradient-green form_submit" value="Verstuur">
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(function() {
+        /** car sale form */
+        $('#form-newsletter').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function() {
+                $('#form-newsletter .form_submit').attr('disabled','disabled')
+                $('#form-newsletter .form_error').hide();
+            },
+            success: function(r) {
+                if(r.result == "ok") {
+                    $('#form-newsletter .formBody').hide();
+
+                    $('#form-newsletter .formSuccess').show();
+
+                    googleConversionAction();
+                }
+                else
+                {
+                    $('#form-newsletter .form_error').html('Niet alle velden zijn ingevuld');
+                    $('#form-newsletter .form_error').show();
+                    /*for(i in r.errors) {
+                     for(a in r.errors[i]) {
+                     if(a<r.errors[i].length)
+                     $('#form-contact-'+ i +' .error').append('<img src="/bundles/vjpwebsite/img/icons/validatie_fout.svg"/> '+r.errors[i][a]+'<br/>');
+                     else
+                     $('#form-contact-'+ i +' .error').append('<img src="/bundles/vjpwebsite/img/icons/validatie_fout.svg"/> '+r.errors[i][a]);
+                     }
+
+                     }*/
+                    $('#form-newsletter .form_submit').removeAttr('disabled')
+                }
+            },
+            error: function(r) {
+                $('#form-newsletter .form_error').html('Fout bij het versturen van de gegevens');
+                $('#form-newsletter .form_submit').removeAttr('disabled')
+            }
+        });
+
+        function googleConversionAction()
+        {
+            var google_conversion_id = 964965151;
+            var google_conversion_language = "nl";
+            var google_conversion_format = "2";
+            var google_conversion_color = "ffffff";
+            var google_conversion_label = "ZYMdCKnF0gkQn-aQzAM";
+            var google_remarketing_only = false;
+            //$.getScript("//www.googleadservices.com/pagead/conversion.js");
+            $("body").append('<img src="//www.googleadservices.com/pagead/conversion/' + google_conversion_id + '/?label=' + google_conversion_label + ' &guid=ON&script=0" />');
+        }
+    })
+</script>

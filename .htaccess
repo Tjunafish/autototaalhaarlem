@@ -1,0 +1,29 @@
+RewriteEngine ON
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^kaart/(.*)/?$ kaart/index.php?car=$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^nieuwsbrief/([^/]+)/([^/]+)/?([^/]+)?/?$ cms/newsletter/user/view.php?temp=$1&id=$2&email=$3 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^unsubscribe/([^/]+)/([^/]+)/([^/]+)/?$ cms/newsletter/user/unsubscribe.php?temp=$1&id=$2&email=$3 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/(.*)/(.*).html$ index.php?section=$1&sub=$2&item=$3 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/(.*).html?$ index.php?section=$1&item=$2 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/(.*)/$ index.php?section=$1&sub=$2 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/?$ index.php?section=$1 [L,QSA]

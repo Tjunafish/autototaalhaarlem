@@ -1,0 +1,61 @@
+.detail_center .image .label,
+#header .nav .but a {
+    background:                 #6bb501; /* Old browsers */
+    background:                 -moz-linear-gradient(top, #6bb501 0%, #4d950a 100%); /* FF3.6+ */
+    background:                 -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6bb501), color-stop(100%,#4d950a)); /* Chrome,Safari4+ */
+    background:                 -webkit-linear-gradient(top, #6bb501 0%,#4d950a 100%); /* Chrome10+,Safari5.1+ */
+    background:                 -o-linear-gradient(top, #6bb501 0%,#4d950a 100%); /* Opera 11.10+ */
+    background:                 -ms-linear-gradient(top, #6bb501 0%,#4d950a 100%); /* IE10+ */
+    background:                 linear-gradient(top, #6bb501 0%,#4d950a 100%); /* W3C */
+    filter:                     progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bb501', endColorstr='#4d950a',GradientType=0 ); /* IE6-9 */
+    border-color:               #2B7306;
+}
+
+#header .nav .but a {
+    border-color:               #4Bb306;
+}
+
+#header .nav .but a:hover, #header .nav .but a.active {
+    background:                 #4d950a; /* Old browsers */
+    background:                 -moz-linear-gradient(top, #4d950a 0%, #6bb501 100%); /* FF3.6+ */
+    background:                 -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4d950a), color-stop(100%,#6bb501)); /* Chrome,Safari4+ */
+    background:                 -webkit-linear-gradient(top, #4d950a 0%,#6bb501 100%); /* Chrome10+,Safari5.1+ */
+    background:                 -o-linear-gradient(top, #4d950a 0%,#6bb501 100%); /* Opera 11.10+ */
+    background:                 -ms-linear-gradient(top, #4d950a 0%,#6bb501 100%); /* IE10+ */
+    background:                 linear-gradient(top, #4d950a 0%,#6bb501 100%); /* W3C */
+    filter:                     progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d950a', endColorstr='#6bb501',GradientType=0 ); /* IE6-9 */
+}
+
+.detail_center .image .label .text {
+    border-top:                 1px solid #8AC700;
+    text-shadow:                0 1px #2E6102;
+}
+
+.detail_center .image .label .corner_right,
+.corner_left.head,
+.corner_right.head {
+    border-color:               #0B5306;
+}
+
+#header .nav {
+    background:                 #6bb501; /* Old browsers */
+    background:                 -moz-linear-gradient(top, #6bb501 0%, #4d950a 100%); /* FF3.6+ */
+    background:                 -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6bb501), color-stop(100%,#4d950a)); /* Chrome,Safari4+ */
+    background:                 -webkit-linear-gradient(top, #6bb501 0%,#4d950a 100%); /* Chrome10+,Safari5.1+ */
+    background:                 -o-linear-gradient(top, #6bb501 0%,#4d950a 100%); /* Opera 11.10+ */
+    background:                 -ms-linear-gradient(top, #6bb501 0%,#4d950a 100%); /* IE10+ */
+    background:                 linear-gradient(top, #6bb501 0%,#4d950a 100%); /* W3C */
+    filter:                     progid:DXImageTransform.Microsoft.gradient( startColorstr='#6bb501', endColorstr='#4d950a',GradientType=0 ); /* IE6-9 */
+    border-color:               #2B7306;   
+}
+
+#header .nav .but {
+    background:                 #264c05; /* Old browsers */
+    background:                 -moz-linear-gradient(top,  #264c05 0%, #4c8201 100%); /* FF3.6+ */
+    background:                 -webkit-gradient(linear, left top, left bottom, color-stop(0%,#264c05), color-stop(100%,#4c8201)); /* Chrome,Safari4+ */
+    background:                 -webkit-linear-gradient(top,  #264c05 0%,#4c8201 100%); /* Chrome10+,Safari5.1+ */
+    background:                 -o-linear-gradient(top,  #264c05 0%,#4c8201 100%); /* Opera 11.10+ */
+    background:                 -ms-linear-gradient(top,  #264c05 0%,#4c8201 100%); /* IE10+ */
+    background:                 linear-gradient(top,  #264c05 0%,#4c8201 100%); /* W3C */
+    filter:                     progid:DXImageTransform.Microsoft.gradient( startColorsstr='#4c8201', endColorstr='#4c8201',GradientType=0 ); /* IE6-9 */
+}

@@ -1,0 +1,451 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block header_css %}
+    <!--BEGIN ONLY ON HOMEPAGE-->
+    <link href="/assets/css/animate.min.css" rel="stylesheet">
+    <link href="/assets/css/bounceInDown.css" rel="stylesheet">
+    <link href="/assets/css/bounceInUp.css" rel="stylesheet">
+    <!--END ONLY ON HOMEPAGE-->
+
+    {% if menu == 'aanbod-ash-specials' %}
+        <link href="/assets/css/autoservicehaarlem.css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+					<div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+					</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <main>
+
+    <section class="bg-blue visible-xs" id="naw-home-visual">
+        <div class="container">
+            <div class="row">
+                {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+            </div>
+        </div>
+    </section>
+    <section id="small-breadcrumb" class="visible-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="small-breadcrumb-list">
+                        <li class="pull-left"><a href="{{ path('site_offerings_ash') }}" title="Terug naar overzicht" id="icon-overview">Terug naar overzicht</a></li>
+                        <li class="pull-right"><a href="{{ next }}" title="Volgende" id="icon-next">Volgende</a></li>
+                        <li class="pull-right"><a href="{{ next }}" title="Vorige" id="icon-previous">Vorige</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="detail">
+        <div class="container">
+            <div class="row" style="padding-bottom:10px">
+                <div class="breadcrumb visible-sm visible-md visible-lg">
+                    <div class="col-xs-6 col-sm-6 col-md-7 col-lg-7">
+                        <a href="{{ path('site_home') }}" title="Home">Home</a> -
+                        <a href="{{ path('site_offerings_ash') }}" title="Aanbod ASH">Aanbod ASH</a>
+                        - {{ car.sortname }}
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <a href="{{ overview_link }}" title="Terug naar het overzicht" class="pull-left">&lt; Terug naar het overzicht</a>
+                    </div>
+                    {% if alts | length > 1 %}
+                        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+                            <a href="{{ prev }}" title="Vorige" class="pull-left">&lt; Vorige</a>
+                            <a href="{{ next }}" title="Volgende" class="pull-right">Volgende &gt;</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {#<div class="row visible-sm visible-md visible-lg">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h1>{{ car.sortname }}</h1>
+                </div>
+            </div>#}
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+
+                    <div id="carousel-detail" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for photo in car.photos %}
+                            <div class="item {% if loop.first %}active{% endif %}">
+                                <img src="{{ vich_uploader_asset(photo, 'image')}}" alt="">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" id="left-control" href="#carousel-detail" data-slide="prev">
+                            <span class="icon-nav icon-left"></span>
+                        </a>
+                        <a class="right carousel-control" id="right-control" href="#carousel-detail" data-slide="next">
+                            <span class="icon-nav icon-right"></span>
+                        </a>
+                    </div>
+
+
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="autoplan">
+                        <div class="bg-grey">
+								<h1>{{ car.sortname }}</h1>
+								<ul class="stock-price">
+                                {#<li class="visible-xs">{{ car.sortname }}</li>#}
+                                {% if car.section == 0  %}
+                                    <li>Prijs <span class="txt-yellow">&euro; {{ car.price | number_format(0,',','.') }},-</span></li>
+                                    <li>Retourgarantie na 3 jaar<span class="txt-yellow">&euro; {{ (car.price * 0.8) | number_format(0,',','.') }},-</span></li>
+                                    <li>Afschrijving na 3 jaar<span class="txt-yellow">&euro; {{ car.price | carCosts | number_format(2,',','.') }}</span></li>
+                                {% else %}
+                                    <li>Prijs <span class="txt-yellow">&euro; {{ car.price | number_format(0,',','.') }},-</span></li>
+                                    {% if car.monthlyprice >0 %}
+                                        <li>Per maand v.a. <span class="txt-yellow">&euro; {{ car.monthlyprice | number_format(2,',','.') }}</span></li>
+                                    {% else %}
+                                        <li>&nbsp;</li>
+                                    {% endif %}
+                                    <li>&nbsp;</li>
+                                {% endif %}
+                            </ul>
+								<div class="btn-border-holder">
+                                    <h1 class="autoplan-title">Financier deze auto</h1>
+									<ul>
+                                        <li class="btn finance-button"><a href="/financiering" class="finance-link gradient-orange">KLIK HIER</a></li>
+                                    </ul>
+								</div>
+                            	{#
+								{% if car.section == 0 %}
+                                <a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}">
+                                    <img src="/images/logo-autoplan.png" class="img-responsive" alt="">
+                                </a>
+                            {% else %}
+                                <img src="/images/autokaart/logo-ash.png" class="img-responsive" alt="" style="margin-top: 35px;margin-left: 30px">
+                            {% endif %}
+								#}
+                        </div>
+                        <div class="gradient-blue blue-border">
+                            <div class="visible-sm visible-md visible-lg">
+                                    <a href="#contact-form" class="btn btn-block gradient-green popup-with-form">Neem contact op</a>
+                                    <form class="mfp-hide white-popup-block" id="contact-form">
+                                        <div class="borderbottom">
+                                            <fieldset>
+                                                <h3 class="txt-blue">Wij bellen jou!</h3>
+                                                <div class="formrow">
+                                                    <input type="tel" placeholder="Type hier je nummer" id="phonenumber" name="phonenumber" value="">
+                                                    <input type="submit" class="btn btn-block gradient-green" value="Bel mij terug">
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="borderbottom">
+                                            <h3 class="txt-blue">Zelf bellen of mailen kan natuurlijk ook!</h3>
+                                            <div class="formrow">
+                                                <p>Tel. {{ textBlock("contact-telefoon") | raw}}<br>
+                                                    Email. <a href="mailto:{{ textBlock("contact-email") | raw}}">{{ textBlock("contact-email") | raw}}</a></p>
+
+                                            </div>
+                                        </div>
+                                        <div class="borderbottom">
+                                            <div class="width50">
+                                                <h3 class="txt-blue">Adres</h3>
+                                                {{ textBlock("contact-bedrijfsnaam") | raw}}<br>
+                                                {{ textBlock("contact-adres") | raw}}<br>
+                                                {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}}
+                                            </div>
+                                            <div class="width50">
+                                                <h3 class="txt-blue">Openingstijden</h3>
+                                                <ul>
+                                                    <li class="days">{{ textBlockTitle("tijden-mavr") | raw}}</li>
+                                                    <li class="time">{{ textBlock("tijden-mavr") | raw}}</li>
+                                                    <li class="days">{{ textBlockTitle("tijden-za") | raw}}</li>
+                                                    <li class="time">{{ textBlock("tijden-za") | raw}}</li>
+                                                    <li class="days">{{ textBlockTitle("tijden-zo") | raw}}</li>
+                                                    <li class="time">{{ textBlock("tijden-zo") | raw}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row visible-sm visible-md visible-lg">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <ul class="feature-list">
+                        <li><span>Merk</span> {{ car.carBrand }}</li>
+                        <li><span>Model</span> {{ car.carBrandModel }}</li>
+                        <li><span>Type</span> {{ car.type }}</li>
+                        <li><span>Carrosserie</span> {{ car.carChassis }} ({{ car.doors }} deurs)</li>
+                        <li><span>Transmissie</span> {{ car.transmission | transmissionTitle }} ({{ car.transmissionCount }})</li>
+                        <li><span>Kleur</span> {{ car.baseColor | capitalize }} {{ car.painttype }}</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <ul class="feature-list">
+                        <li><span>KM stand</span> {{ car.kmcounter | number_format(0,',','.') }} km<span class="icon-km"></span></li>
+                        <li><span>Brandstof</span> {{ car.carFuel | fuelTitle }}</li>
+                        <li><span>Bouwjaar</span> {{ car.constructionyear }}</li>
+                        <li><span>Cil. inhoud</span> {{ car.cilinder }} cc</li>
+                        <li><span>Aantal cil.</span> {{ car.cilindercount }}</li>
+                        <li><span>Vermogen</span> {{ car.motorpower }} pk</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <ul class="feature-list">
+                        <li><span>Topsnelheid</span> {{ car.topspeed }} km/u</li>
+                        <li><span>Interieur</span> {{ car.fabric }} ({{ car.fabricColor }})</li>
+                        <li><span>Energielabel</span> <span class="label">{{ car.energylabel }}</span></li>
+                        <li><span>Wegenbelasting</span> &euro; {{ car.taxmin }} - &euro; {{ car.taxmax }} p/kw</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul id="tabdetail" class="nav nav-tabs">
+                        <li class="visible-xs"><a data-toggle="tab" data-tab="specs" href="#specs" title="Specs">Specs</a></li>
+                        <li class="active visible-sm visible-md visible-lg"><a data-toggle="tab" data-tab="photos" href="#photos" title="Foto&rsquo;s">Foto&rsquo;s</a></li>
+                        <li><a data-toggle="tab" data-tab="accessoires" href="#accessoires" title="Accessoires">Accessoires</a></li>
+                        <li class="visible-sm visible-md visible-lg"><a data-toggle="tab" data-tab="notes" href="#notes" title="Opmerkingen">Opmerkingen</a></li>
+                        <li class="visible-xs"><a data-toggle="tab" data-tab="mobileDetail" href="#mobileDetail" title="Detail">Detail</a></li>
+                        <li class="visible-xs"><a data-toggle="tab" data-tab="contact" href="#contact" title="Contact">Contact</a></li>
+                        <li class="pull-right visible-sm visible-md visible-lg"><a href="mailto:doorstuur@adres.nl?subject=Auto op autoservicehaarlem.nl&body=http://www.autoservicehaarlem.nl{{ carUrl(car.section, car.carBrand.slug, car.sortname|slugify, car.id) }}" class="btn-icon" id="icon-email" title="E-mail">E-mail</a></li>
+                        <li class="pull-right visible-sm visible-md visible-lg"><a href="{{ carUrlPrint(car.section, car.carBrand.slug, car.sortname|slugify, car.id) }}" class="btn-icon" id="icon-print" title="Print" target="_blank">Print</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="specs">
+                            <ul class="feature-list">
+                                <li><span>Merk</span> {{ car.carBrand }}</li>
+                                <li><span>Model</span> {{ car.carBrandModel }}</li>
+                                <li><span>Type</span> {{ car.type }}</li>
+                                <li><span>Carrosserie</span> {{ car.carChassis }} ({{ car.doors }} deurs)</li>
+                                <li><span>Transmissie</span> {{ car.transmission | transmissionTitle }} ({{ car.transmissionCount }})</li>
+                                <li><span>Kleur</span> {{ car.baseColor | capitalize }} {{ car.painttype }}</li>
+                                <li><span>KM stand</span> {{ car.kmcounter | number_format(0,',','.') }} km<span class="icon-km"></span></li>
+                                <li><span>Brandstof</span> {{ car.carFuel | fuelTitle }}</li>
+                                <li><span>Bouwjaar</span> {{ car.constructionyear }}</li>
+                                <li><span>Cil. inhoud</span> {{ car.cilinder }} cc</li>
+                                <li><span>Aantal cil.</span> {{ car.cilindercount }}</li>
+                                <li><span>Vermogen</span> {{ car.motorpower }} pk</li>
+                                <li><span>Topsnelheid</span> {{ car.topspeed }} km/u</li>
+                                <li><span>Interieur</span> {{ car.fabric }} ({{ car.fabricColor }})</li>
+                                <li><span>Energielabel</span> <span class="label">{{ car.energylabel }}</span></li>
+                                <li><span>Wegenbelasting</span> &euro; {{ car.taxmin }} - &euro; {{ car.taxmax }} p/kw</li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade in active" id="photos">
+                            <ul id="photolist">
+                                {% for photo in car.photos %}
+                                    <li class="col-xs-6 col-sm-4 col-md-4 col-lg-4"><a href="{{ vich_uploader_asset(photo, 'image')}}" class="popup"><img class="img-responsive" src="{{ vich_uploader_asset(photo, 'image')  | apply_filter('car_detail_thumb')}}" alt=""></a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="accessoires">
+                            <ul class="accessoireslist col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                {% for accessoire in car.accessoiresList %}
+                                    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4">{{ accessoire }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="notes">
+                            <div class="padding">
+                                {{ car.remarks | raw }}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="mobileDetail">
+                            <div class="padding">
+                                {{ car.remarks | raw }}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact">
+                            <div>
+                                <p class="pull-left">{{ textBlock("contact-bedrijfsnaam") | raw}}<br>
+                                    {{ textBlock("contact-adres") | raw}}<br>
+                                    {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}}<br>
+                                    <br>
+                                    {{ textBlock("contact-telefoon") | raw}}<br>
+                                    <a href="mailto:{{ textBlock("contact-email") | raw}}" title="Mail naar AutoPlan Nederland">{{ textBlock("contact-email") | raw}}</a></p>
+                                <a href="https://maps.google.nl/maps?q=to:+Munterlaan+2,+Haarlem&hl=nl&sll=53.086178,7.070384&sspn=0.008203,0.014892&t=m&z=17" class="btn gradient-green pull-right">Plan je route</a></p>
+                            </div>
+                            <div>
+                                <h4 class="txt-blue">Openingstijden</h4>
+                                <ul>
+                                    <li class="days">{{ textBlockTitle("tijden-mavr") | raw}}</li>
+                                    <li class="time">{{ textBlock("tijden-mavr") | raw}}</li>
+                                    <li class="days">{{ textBlockTitle("tijden-za") | raw}}</li>
+                                    <li class="time">{{ textBlock("tijden-za") | raw}}</li>
+                                    <li class="days">{{ textBlockTitle("tijden-zo") | raw}}</li>
+                                    <li class="time">{{ textBlock("tijden-zo") | raw}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <br style="clear: both"/>
+                    <ul id="tabdetail" class="nav nav-tabs">
+                        <li class="visible-xs"><a data-toggle="tab" data-tab="specs" href="#specs" title="Specs">Specs</a></li>
+                        <li class="active visible-sm visible-md visible-lg"><a data-toggle="tab" data-tab="photos" href="#photos" title="Foto&rsquo;s">Foto&rsquo;s</a></li>
+                        <li><a data-toggle="tab" data-tab="accessoires" href="#accessoires" title="Accessoires">Accessoires</a></li>
+                        <li class="visible-sm visible-md visible-lg"><a data-toggle="tab" data-tab="notes" href="#notes" title="Opmerkingen">Opmerkingen</a></li>
+                        <li class="visible-xs"><a data-toggle="tab" data-tab="mobileDetail" href="#mobileDetail" title="Detail">Detail</a></li>
+                        <li class="visible-xs"><a data-toggle="tab" data-tab="contact" href="#contact" title="Contact">Contact</a></li>
+                        <li class="pull-right visible-sm visible-md visible-lg"><a href="mailto:doorstuur@adres.nl?subject=Auto op autoservicehaarlem.nl&body=http://www.autoservicehaarlem.nl{{ carUrl(car.section, car.carBrand.slug, car.sortname|slugify, car.id) }}" class="btn-icon" id="icon-email" title="E-mail">E-mail</a></li>
+                        <li class="pull-right visible-sm visible-md visible-lg"><a href="{{ carUrlPrint(car.section, car.carBrand.slug, car.sortname|slugify, car.id) }}" class="btn-icon" id="icon-print" title="Print" target="_blank">Print</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $('ul.nav-tabs li').removeClass('active');
+            $('ul.nav-tabs li a[data-tab="'+ $(e.target).data('tab')+'"]').parent().addClass('active');
+            /*e.target // activated tab
+            e.relatedTarget // previous tab*/
+        })
+    </script>
+
+    <section id="stock" class="bg-grey visible-sm visible-md visible-lg">
+        <div class="container">
+            <div class="row">
+                <h2 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 txt-orange">Alternatieve auto&rsquo;s</h2>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="owl-alt">
+                    {% for alt in alts %}
+                        {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': alt})) }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <section id="small-breadcrumb-bottom" class="visible-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="small-breadcrumb-list">
+                        <li class="pull-left"><a href="{{ overview_link }}" title="Terug naar overzicht" id="icon-overview">Terug naar overzicht</a></li>
+                        <li class="middle"><a href="#" title="Omhoog" id="icon-up">Omhoog</a></li>
+                        <li class="pull-right"><a href="{{ next }}" title="Volgende" id="icon-next">Volgende</a></li>
+                        <li class="pull-right"><a href="{{ prev }}" title="Vorige" id="icon-previous">Vorige</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="visible-sm visible-md visible-lg" id="pagenavigation">
+        <div id="pagenav">
+            <div id="page-top"><a href="#top" title="Naar boven">Top</a></div>
+            {% if alts | length > 1 %}
+                <div id="page-nav">
+                    <a href="{{ prev }}" id="btn-previous" title="Vorige"><span>Vorige</span></a>
+                    <a href="{{ next }}" id="btn-next" title="Volgende"><span>Volgende</span></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block footer_scripts %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#owl-alt").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,2]
+            });
+        });
+
+        $('.carousel').carousel();
+
+        $(".carousel").swipe( {
+            swipeLeft: function() {
+                $(this).carousel('next');
+            },
+            swipeRight: function() {
+                $(this).carousel('prev');
+            },
+            allowPageScroll: 'vertical'
+        });
+
+        $(document).ready(function() {
+            $('.popup-with-form').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                focus: '#phonenumber',
+
+                // When elemened is focused, some mobile browsers in some cases zoom in
+                // It looks not nice, so we disable it:
+                callbacks: {
+                    beforeOpen: function() {
+                        if($(window).width() < 700) {
+                            this.st.focus = false;
+                        } else {
+                            this.st.focus = '#phonenumber';
+                        }
+                    }
+                }
+            });
+
+            $('#photolist').magnificPopup({
+                delegate: 'a.popup', // child items selector, by clicking on it popup will open
+                type: 'image',
+                mainClass: 'mfp-no-margins mfp-with-zoom',
+                gallery:{
+                    enabled:true
+                }
+                // other options
+            });
+        });
+
+        $(window).resize(function () {
+            if ($(window).width() < 768) {
+                $('#photos').removeClass('in active');
+                $('#tab-photos').removeClass('active');
+                $('#specs').addClass('in active');
+                $('#tab-specs').addClass('active');
+
+            } else {
+                $('#specs').removeClass('in active');
+                $('#tab-specs').removeClass('active');
+                $('#photos').addClass('in active');
+                $('#tab-photos').addClass('active');
+            }
+        });
+
+        $(window).ready(function () {
+            if ($(window).width() < 768) {
+                $('#photos').removeClass('in active');
+                $('#tab-photos').removeClass('active');
+                $('#specs').addClass('in active');
+                $('#tab-specs').addClass('active');
+            } else {
+                $('#specs').removeClass('in active');
+                $('#tab-specs').removeClass('active');
+                $('#photos').addClass('in active');
+                $('#tab-photos').addClass('active');
+            }
+        });
+
+    </script>
+{% endblock %}

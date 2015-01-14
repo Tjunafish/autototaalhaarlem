@@ -1,0 +1,232 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block header_css %}
+    <!--BEGIN ONLY ON HOMEPAGE-->
+    <link href="/assets/css/animate.min.css" rel="stylesheet">
+    <link href="/assets/css/bounceInDown.css" rel="stylesheet">
+    <link href="/assets/css/bounceInUp.css" rel="stylesheet">
+    <!--END ONLY ON HOMEPAGE-->
+
+    <link href="/assets/css/autoservicehaarlem.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+					<div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+					</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-blue visible-xs" id="naw-home-visual">
+        <div class="container">
+            <div class="row">
+                {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-grey {#visible-sm visible-md visible-lg#}" {% if searched %}style="display: none !important"{% endif %} id="section-search-carousel">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 nopadding" style="padding-left: 5px">
+                    <ul id="carlist" class="nav nav-tabs pull-left">
+                        <li class="active"><a data-toggle="tab" href="#new">Nieuw binnen</a></li>
+                        {% if popular | length > 0 %}
+                            <li><a data-toggle="tab" href="#popular">Meest populair</a></li>
+                        {% endif %}
+                        {% if inoffer | length > 0 %}
+                            <li><a data-toggle="tab" href="#offers">Best Day Deal</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5 visible-sm visible-md visible-lg nopadding">
+                    <ul class="nav nav-tabs pull-right" id="quick-search">
+                        <li>
+                            <form method="post" id="search" action="{{ path('site_search') }}">
+                                <input type="hidden" name="searchBy" value="2">
+                                <input name="search_query" type="text" value="{{ search.search_query }}" placeholder="Snel zoeken..."><input type="submit" value="zoeken">
+                            </form>
+                        </li>
+                        <li><a href="#" title="Uitgebreid zoeken" id="icon-blue-arrow" onclick="return showSearch();">Uitgebreid zoeken</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="new">
+                        <div id="carousel-new" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    {% for car in new_cars %}
+                                    {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                                    {% if loop.index % 10 == 0 and not loop.last %}
+                                </div>
+                                <div class="item">
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-new" role="button" data-slide="prev">
+
+                            </a>
+                            <a class="right carousel-control" href="#carousel-new" role="button" data-slide="next">
+
+                            </a>
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane" id="popular">
+                        <div id="carousel-popular" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    {% for car in popular %}
+                                    {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                                    {% if loop.index % 10 == 0 and not loop.last %}
+                                </div>
+                                <div class="item">
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-popular" role="button" data-slide="prev">
+
+                            </a>
+                            <a class="right carousel-control" href="#carousel-popular" role="button" data-slide="next">
+
+                            </a>
+                        </div>
+
+
+
+                    </div>
+                    <div class="tab-pane" id="offers">
+                        <div id="carousel-offers" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    {% for car in inoffer %}
+                                    {{ render(controller('AutoplanSiteBundle:Cars:carResult', {'car': car})) }}
+                                    {% if loop.index % 10 == 0 and not loop.last %}
+                                </div>
+                                <div class="item">
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-offers" role="button" data-slide="prev">
+
+                            </a>
+                            <a class="right carousel-control" href="#carousel-offers" role="button" data-slide="next">
+
+                            </a>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="find-car" class="bg-grey" {% if not searched %}style="display: none !important"{% endif %}>
+        <div class="container">
+            <div class="row">
+                {{ render(controller('AutoplanSiteBundle:Cars:findCar')) }}
+            </div>
+        </div>
+    </section>
+    {#<section class="retour visible-sm visible-md visible-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="retour80">
+                        <img src="/images/80-retour.png" alt="" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>#}
+    <section id="stock" class="bg-grey">
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 stock-div">
+    <ul id="stocklist">
+        {{ render(controller('AutoplanSiteBundle:Cars:carResults')) }}
+    </ul>
+    </div>
+
+    {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a class="btn btn-block btn-default" href="#">Laad meer auto&rsquo;s</a>
+    </div>#}
+    </div>
+    </div>
+    </section>
+
+    <div class="visible-sm visible-md visible-lg" id="pagenavigation">
+        <div id="pagenav" style="margin-bottom: 220px">
+            <div id="page-top"><a href="#top" title="Naar boven">Top</a></div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+
+<script src="/assets/js/bootstrap-slider.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript">
+
+
+        $(document).ready(function() {
+            $("#owl-new").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+            $("#owl-offers").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+            $("#owl-popular").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,1],
+                navigation: true
+            });
+
+        });
+
+    </script>
+
+{% endblock %}

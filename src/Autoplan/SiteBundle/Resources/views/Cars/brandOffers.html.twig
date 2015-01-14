@@ -1,0 +1,99 @@
+{%  extends "AutoplanSiteBundle::layout.html.twig" %}
+
+{% block header_css %}
+    <!--BEGIN ONLY ON HOMEPAGE-->
+    <link href="/assets/css/animate.min.css" rel="stylesheet">
+    <link href="/assets/css/bounceInDown.css" rel="stylesheet">
+    <link href="/assets/css/bounceInUp.css" rel="stylesheet">
+    <!--END ONLY ON HOMEPAGE-->
+{% endblock %}
+
+{% block content %}
+    <section id="small-visual" class="visible-sm visible-md visible-lg">
+        <div id="carousel-page" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+					<div class="visual-bg">
+                    <img src="/images/slider/slide4.jpg" alt="">
+					</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-blue visible-xs" id="naw-home-visual">
+        <div class="container">
+            <div class="row">
+                {{ textBlock("contact-bedrijfsnaam") | raw}} | <span class="visible-sm visible-md visible-lg">{{ textBlock("contact-adres") | raw}} | {{ textBlock("contact-postcode") | raw}} {{ textBlock("contact-plaats") | raw}} |</span> T. {{ textBlock("contact-telefoon") | raw }} | {{ textBlock("contact-email") | raw}}
+            </div>
+        </div>
+    </section>
+    <section id="stock">
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1>Aanbod {{ brand }}</h1>
+        {{ description | raw }}
+    <ul id="stocklist">
+        {{ render(controller('AutoplanSiteBundle:Cars:carResults')) }}
+    </ul>
+    </div>
+
+    {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a class="btn btn-block btn-default" href="#">Laad meer auto&rsquo;s</a>
+    </div>#}
+    </div>
+    </div>
+    </section>
+
+    <div class="visible-sm visible-md visible-lg" id="pagenavigation">
+        <div id="page-top" style="display: none"><a href="#top" title="Naar boven">Top</a></div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+
+<script src="/assets/js/bootstrap-slider.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#owl-new").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,2],
+                navigation: true
+            });
+            $("#owl-offers").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,2],
+                navigation: true
+            });
+            $("#owl-popular").owlCarousel({
+                autoPlay: 7000, //Set AutoPlay to 7 seconds
+                items : 5,
+                itemsDesktop : [1199,4],
+                itemsDesktopSmall : [979,3],
+                itemsTablet : [768,2],
+                itemsMobile : [479,2],
+                navigation: true
+            });
+
+        });
+
+    </script>
+
+{% endblock %}

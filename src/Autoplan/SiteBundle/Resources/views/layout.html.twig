@@ -1,0 +1,303 @@
+<!doctype html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AutoPlan Nederland">
+    <meta name="author" content="AutoPlan Nederland">
+    <title>{% block title %}Auto Service Haarlem{% endblock %}</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href="/assets/css/owl.carousel.css" rel="stylesheet">
+    <link href="/assets/css/owl.theme.css" rel="stylesheet">
+    <link href="/assets/css/autoplan.css" rel="stylesheet">
+    <link href="/assets/css/autoservicehaarlem.css" rel="stylesheet">
+    <link href="/assets/css/magnific-popup.css" rel="stylesheet" >
+
+    <link rel="apple-touch-icon" href="/desktop-icon.png?new" />
+    <meta name="apple-mobile-web-app-title" content="Auto Service Haarlem">
+    <link rel="icon" type="image/png" href="/favicon.png?new">
+
+    {% block header_css %}
+    {% endblock %}
+
+    <!--[if lt IE 10]>
+    <link rel="stylesheet" type="text/css" href="/assets/css/ie-style.css" />
+    <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/assets/js/jquery.form.js"></script>
+    <script src="/assets/js/jquery.mobile.swipe.min.js"></script>
+    <script src="/assets/js/functions.js"></script>
+    {% block header_scripts %}
+    {% endblock %}
+</head>
+{% if (page.slug == 'financiering') or (page.slug == 'finance-form') or (page.slug == 'disclaimer') or (page.slug == 'financial-lease') %}
+    <body id="top" class="{{ page.slug }}">
+{% else %}
+    <body id="top">
+{% endif %}
+   
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-49422403-1', 'autoservicehaarlem.nl');
+    ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&appId=802711753125169&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="fb-root"></div>
+
+{#<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '802711753125169',
+            xfbml      : true,
+            version    : 'v2.1'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>#}
+
+<div id="wrap">
+
+<section id="header">
+    <nav id="main-nav" class="navbar navbar-default navbar-fixed-top visible-sm visible-xs" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand visible-xs" href="{{ path('site_search') }}" id="icon-search" title="Zoeken">zoeken</a>
+                {#<a class="navbar-brand visible-sm visible-md visible-lg" href="{{ path('site_home') }}"><img src="/images/logo-autoservicehaarlem.png" alt="Auto Service Haarlem" class="img-responsive"></a>#}
+                <a class="navbar-brand visible-xs visible-sm" href="{{ path('site_home') }}"><img src="/images/logo-autoservicehaarlem.png" alt="Auto Service Haarlem" class="img-responsive"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="mainnav-navbar-collapse">
+                <ul class="nav navbar-nav pull-right">
+                    <li {% if menu == 'home' %}class="active"{% endif %}><a href="{{ path('site_home') }}" title="Home">Home</a></li>
+						<li {% if menu == 'aanbod-ash-specials' %}class="active"{% endif %}><a href="{{ path('site_offerings_ash') }}" title="Voorraad">Voorraad</a></li>
+						<li {% if menu == 'certainties' %}class="active"{% endif %}><a href="{{ path('site_certainties') }}" title="Onze zekerheden">Onze zekerheden</a></li>
+                    {#<li {% if menu == 'aanbod-autoplan' %}class="active"{% endif %}><a href="{{ path('site_offerings_autoplan') }}" title="Aanbod Autoplan">Aanbod Autoplan</a></li>
+                    <li {% if menu == 'aanbod-ash-specials' %}class="active"{% endif %}><a href="{{ path('site_offerings_ash') }}" title="Aanbod ASH Specials">Aanbod ASH Specials</a></li>
+                    <li class="dropdown {% if menu == 'wat-is-autoplan' or menu == 'wie-zijn-wij' or menu == 'faq' or menu == 'algemene-voorwaarden' or menu == 'disclaimer' %}active{% endif %}"><a href="#" title="Autoplan" class="dropdown-toggle" data-toggle="dropdown">Autoplan</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}" title="Wat is AutoPlan">Wat is AutoPlan</a></li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'wie-zijn-wij'}) }}" title="Wie zijn wij">Wie zijn wij</a></li>
+                            <li><a href="{{ path('site_faq') }}" title="Veel gestelde vragen">Veel gestelde vragen</a></li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'algemene-voorwaarden'}) }}" title="Algemene Voorwaarden">Algemene Voorwaarden</a></li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer">Disclaimer</a></li>
+                        </ul>
+                    </li>#}
+                    <li {% if menu == 'financiering' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'financiering'}) }}" title="Financiering">Financiering</a></li>
+                    <li {% if menu == 'disclaimer' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer">Disclaimer</a></li>
+						{#<li class="dropdown {% if menu == 'wat-is-autoplan' or menu == 'wie-zijn-wij' or menu == 'faq' or menu == 'algemene-voorwaarden' or menu == 'disclaimer' %}active{% endif %}"><a href="#" title="Autoplan">Autoplan</a></li>#}
+                    <li {% if menu == 'contact' %}class="active"{% endif %}><a href="{{ path('site_contact') }}" title="Contact">Contact</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <nav id="main-nav-2" class="navbar navbar-default navbar-fixed-top visible-md visible-lg" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand visible-xs" href="{{ path('site_search') }}" id="icon-search" title="Zoeken">zoeken</a>
+                {#<a class="navbar-brand visible-sm visible-md visible-lg" href="{{ path('site_home') }}"><img src="/images/logo-autoservicehaarlem.png" alt="Auto Service Haarlem" class="img-responsive"></a>#}
+                <a class="navbar-brand visible-xs" href="{{ path('site_home') }}"><img src="/images/logo-autoservicehaarlem.png" alt="Auto Service Haarlem" class="img-responsive"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="mainnav-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li {% if menu == 'home' %}class="active"{% endif %}><a href="{{ path('site_home') }}" title="Home" class="btn btn-default menu-button">Home</a></li>
+					<li {% if menu == 'aanbod-ash-specials' %}class="active"{% endif %}><a href="{{ path('site_offerings_ash') }}" title="Voorraad" class="btn btn-default menu-button">Voorraad</a></li>
+					<li {% if menu == 'certainties' %}class="active"{% endif %}><a href="{{ path('site_certainties') }}" title="Onze zekerheden" class="btn btn-default menu-button">Onze zekerheden</a></li>
+					<li class="logo"><a href="{{ path('site_home') }}" title="Home" style="padding: 0"><img src="/images/logo-autoservicehaarlem.png" alt="Auto Service Haarlem" class="img-responsive"></a></li>
+                    {#<li {% if menu == 'aanbod-autoplan' %}class="active"{% endif %}><a href="{{ path('site_offerings_autoplan') }}" title="Aanbod Autoplan" class="btn btn-default menu-button">Aanbod Autoplan</a></li>
+                    <li {% if menu == 'aanbod-ash-specials' %}class="active"{% endif %}><a href="{{ path('site_offerings_ash') }}" title="Aanbod ASH Specials" class="btn btn-default menu-button">Aanbod ASH Specials</a></li>
+                    <li class="dropdown {% if menu == 'wat-is-autoplan' or menu == 'wie-zijn-wij' or menu == 'faq' or menu == 'algemene-voorwaarden' or menu == 'disclaimer' %}active{% endif %}"><a href="#" title="Autoplan" class="dropdown-toggle btn btn-default menu-button" data-toggle="dropdown">Autoplan</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}" title="Wat is AutoPlan">Wat is AutoPlan</a></li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'wie-zijn-wij'}) }}" title="Wie zijn wij">Wie zijn wij</a></li>
+                            <li><a href="{{ path('site_faq') }}" title="Veel gestelde vragen">Veel gestelde vragen</a></li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'algemene-voorwaarden'}) }}" title="Algemene Voorwaarden">Algemene Voorwaarden</a></li>
+                            <li><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer">Disclaimer</a></li>
+                        </ul>
+                    </li>#}
+                    <li {% if menu == 'financiering' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'financiering'}) }}" title="Financiering" class="btn btn-default menu-button orange-button" style="margin-left: 10px;">Financiering</a></li>
+                      <li {% if menu == 'disclaimer' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'disclaimer'}) }}" title="Disclaimer" class="btn btn-default menu-button">Disclaimer</a></li>
+						{#<li {% if menu == 'wat-is-autoplan' or menu == 'wie-zijn-wij' or menu == 'faq' or menu == 'algemene-voorwaarden' or menu == 'disclaimer' %}class="active"{% endif %}><a href="{{ path('site_1st_level', {'firstLevel': 'wat-is-autoplan'}) }}" title="Autoplan" class="btn btn-default menu-button">Autoplan</a></li>#}
+                    <li {% if menu == 'contact' %}class="active"{% endif %}><a href="{{ path('site_contact') }}" title="Contact" class="btn btn-default menu-button">Contact</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
+</section>
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+<section class="gradient-darkgrey visible-sm visible-md visible-lg" id="footer">
+    <div class="container">
+        <div class="row">
+			{#<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <h4>Contact APN</h4>
+                <div itemscope itemtype="http://schema.org/Organization">
+                    <h5 itemprop="name">{{ textBlock("contact-bedrijfsnaam") | raw}}</h5>
+                    <div class="adr">
+                        <div itemprop="street-address">{{ textBlock("contact-adres") | raw}}</div>
+                        <div>
+                            <span itemprop="postal-code">{{ textBlock("contact-postcode") | raw}}</span> <span itemprop="locality">{{ textBlock("contact-plaats") | raw}}</span>
+                        </div>
+                    </div>
+                    <div>T <span itemprop="telephone">{{ textBlock("contact-telefoon") | raw}}</span></div>
+                    <div class="pdbt30">E <a itemprop="email" href="mailto:{{ textBlock("contact-email") | raw}}">{{ textBlock("contact-email") | raw}}</a></div>
+                    <div>KVK <span itemprop="kvk">{{ textBlock("contact-kvk") | raw}}</span> </div>
+                    <div>{{ textBlockTitle("contact-btw") | raw}} <span itemprop="vat">{{ textBlock("contact-btw") | raw}}</span> </div>
+                    <div><span>&nbsp;</span> </div>
+                </div>
+                <div>
+                    <a href="{{ path('site_sitemap') }}" title="Sitemap" class="txt-blue">Sitemap</a>
+                </div>
+               
+            </div>#}            
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <h4>Contact</h4>
+                <div itemscope itemtype="http://schema.org/Organization">
+                    <h5 itemprop="name">{{ textBlock("contact-bedrijfsnaam") | raw}}</h5>
+                    <div class="adr">
+                        <div itemprop="street-address">{{ textBlock("contact-adres") | raw}}</div>
+                        <div>
+                            <span itemprop="postal-code">{{ textBlock("contact-postcode") | raw}}</span> <span itemprop="locality">{{ textBlock("contact-plaats") | raw}}</span>
+                        </div>
+                    </div>
+                    <div><span>&nbsp;</span> </div>
+                    {#<div>T <span itemprop="telephone">023 792 00 02</span></div>#}
+                    <div>T <span itemprop="telephone">{{ textBlock("contact-telefoon") | raw}}</span></div>
+                    <div class="pdbt30">E <a itemprop="email" href="mailto:{{ textBlock("contact-email") | raw}}">{{ textBlock("contact-email") | raw}}</a></div>
+
+                </div>
+                
+                <div>
+                    Website created by <a href="http://www.merqwaardig.nl" target="_blank" title="Merqwaardig">Merqwaardig</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                <h4>Openingstijden</h4>
+                <ul>
+                    <li class="days">{{ textBlockTitle("tijden-mavr") | raw}}</li>
+                    <li class="time">{{ textBlock("tijden-mavr") | raw}}</li>
+                    <li class="days">{{ textBlockTitle("tijden-za") | raw}}</li>
+                    <li class="time">{{ textBlock("tijden-za") | raw}}</li>
+                    <li class="days">{{ textBlockTitle("tijden-zo") | raw}}</li>
+                    <li class="time">{{ textBlock("tijden-zo") | raw}}</li>
+                </ul>
+            </div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				{{ render(controller('AutoplanSiteBundle:System:newsletterForm')) }}
+			</div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<h4>Aangesloten bij</ha>
+                	<ul id="footer-btn">
+                    <li><a class="btn-footer" id="icon-rdw" title="RDW" href="#">RDW erkend</a></li>
+                    <li><a class="btn-footer" id="icon-nap" title="Nationale Auto Pas" href="#">Nationale Auto Pas</a></li>
+                	</ul>
+			</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/bootstrap-slider.js"></script>
+<script type="text/javascript">
+    // scroll
+    $(function() {
+
+        $('a[href*=#top]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+
+        var $toTop = $('#pagenav');
+        $(window).scroll(function () {
+            if ($toTop.is(':visible') && $(this).scrollTop() <= 100) {
+                $toTop.fadeOut();
+            } else if (! $toTop.is(':visible') && $(this).scrollTop() > 100) {
+                $toTop.fadeIn();
+            }
+        });
+    });
+</script>
+{% block footer_scripts %}
+    <!-- Google-code voor remarketingtag -->
+    <!--------------------------------------------------
+    Remarketingtags mogen niet worden gekoppeld aan gegevens waarmee iemand persoonlijk kan worden geïdentificeerd of op pagina's worden geplaatst die binnen gevoelige categorieën vallen. Meer informatie en instructies voor het instellen van de tag zijn te vinden op: http://google.com/ads/remarketingsetup
+    --------------------------------------------------->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 964965151;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/964965151/?value=0&amp;guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
+{% endblock %}
+</body>
+</html>

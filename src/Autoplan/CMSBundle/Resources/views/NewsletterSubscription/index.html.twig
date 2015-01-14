@@ -1,0 +1,121 @@
+{% extends 'AutoplanCMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <ol class="breadcrumb bc-3">
+        <li>
+            <a href="{{ path('admin_dashboard') }}"><i class="entypo-home"></i>Home</a>
+        </li>
+        <li class="active">
+
+            <strong>Newsletter Subscribers</strong>
+        </li>
+    </ol>
+
+
+    <h2>Newsletter Subscribers</h2>
+    <table class="table table-bordered table-striped datatable" id="subscribers-table">
+    <thead>
+    <tr>
+        <th>Active</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Groups</th>
+        <th>Created</th>
+        <th>Acties</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>
+                <span class="badge {{ entity.active ? 'badge-success' : 'badge-primary' }}">{{ entity.active ? 'Ja' : 'Nee' }}</span>
+            </td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.email }}</td>
+            <td>
+                {% if entity.groups is empty %}
+                    -
+                {% else %}
+                    {{ entity.groups | join(', ') }}
+                {% endif %}
+            </td>
+            <td>{{ entity.created | date('Y-m-d h:i:s') }}</td>
+            <td>
+                <a href="{{ path('admin_newsletter_subscribe_edit', {id: entity.id}) }}" class="btn btn-default btn-sm btn-icon icon-left">
+                    <i class="entypo-pencil"></i>
+                    Bewerken
+                </a>
+
+                <a href="{{ path('admin_newsletter_subscribe_delete', {id: entity.id}) }}" class="btn btn-danger btn-sm btn-icon icon-left">
+                    <i class="entypo-cancel"></i>
+                    Verwijderen
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+    <a href="{{ path('admin_newsletter_subscribe_new') }}" class="btn btn-primary">
+        <i class="entypo-plus"></i>
+        New subscriber
+    </a>
+
+    <a href="{{ path('admin_newsletter_subscribers_import') }}" class="btn btn-default">
+        <i class="entypo-download"></i>
+        Import subscribers
+    </a>
+
+    <a href="{{ path('admin_newsletter_subscribers_export') }}" class="btn btn-default">
+        <i class="entypo-export"></i>
+        Export CSV
+    </a>
+
+
+    <script type="text/javascript">
+        jQuery(window).load(function()
+        {
+            $("#subscribers-table").dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "t<'row'<'col-xs-6 col-left'i><'col-xs-6 col-right'p>>",
+                "bStateSave": false,
+                "iDisplayLength": 50,
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    { "bSortable": false },
+                    null,
+                    { "bSortable": false }
+                ]
+            });
+
+            $(".dataTables_wrapper select").select2({
+                minimumResultsForSearch: -1
+            });
+
+            // Highlighted rows
+            $("#subscribers-table tbody input[type=checkbox]").each(function(i, el)
+            {
+                var $this = $(el),
+                        $p = $this.closest('tr');
+
+                $(el).on('change', function()
+                {
+                    var is_checked = $this.is(':checked');
+
+                    $p[is_checked ? 'addClass' : 'removeClass']('highlight');
+                });
+            });
+
+            // Replace Checboxes
+            $(".pagination a").click(function(ev)
+            {
+                replaceCheckboxes();
+            });
+        });
+
+    </script>
+
+{% endblock %}

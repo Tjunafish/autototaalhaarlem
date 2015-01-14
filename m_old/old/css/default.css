@@ -1,0 +1,385 @@
+* {
+    border: 						0 none;
+    margin: 						0;
+    outline:						0 none;
+    padding: 						0;
+    text-decoration: 				none;
+}
+
+html, body {
+    height: 						100%;
+}
+
+.clear {
+	clear:							both;
+}
+  /*************/
+ /*** INDEX ***/
+/*************/
+
+#header h1 {
+    font-size: 						0;
+    height: 						150px;
+    left: 							5px;
+    overflow: 						hidden;
+    position: 						absolute;
+    text-indent: 					-999999px;
+    top: 							37px;
+    width: 							181px;
+    z-index: 						5;
+}
+
+#header h1 img {
+    left: 							0;
+    position: 						absolute;
+    top: 							0;
+}
+
+img {
+    border: 						0 none;
+    vertical-align: 				bottom;
+}
+
+#ipad_fix {
+    height: 						auto !important;
+	margin:							atuo;
+    min-height: 					100%;
+    overflow: 						hidden;
+    width:							670px;
+}
+
+#wrapper {
+    background: 					none repeat scroll 0 0 #EAEAEA;
+    height: 						auto !important;
+	margin:							atuo;
+    min-height: 					100%;
+    position: 						relative;
+    width:							670px;
+}
+
+#search {
+    bottom: 						12px;
+    position: 						absolute;
+    right: 							25px;
+}
+
+#search input[type="image"] {
+    bottom: 						15px;
+    position: 						absolute;
+    right: 							9px;
+}
+
+#search input[type="text"], 
+.label .newsletter input[type="text"], 
+.car.detail form.contact input[type="text"], 
+#block_left form input[type="text"], 
+#contact input[type="text"], 
+#contact textarea, 
+.bigblock input[type="text"], 
+.tell_friend input[type="text"], 
+.tell_friend textarea, 
+.taxatie input[type="text"], 
+.taxatie textarea {
+    padding: 						6px 35px 4px 15px;
+    width: 							400px;
+}
+
+input[type="text"], textarea {
+    background: 					none repeat scroll 0 0 #FDFAF2;
+    border: 						0 none;
+    border-radius: 					6px 6px 6px 6px;
+    box-shadow: 					1px 2px 3px #CCCCCC inset;
+    color: 							#B3B3B3;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						31px;
+    text-transform: 				uppercase;
+}
+
+#header {
+    background: 					url("../../img/header.jpg") repeat-x scroll 0 0 transparent;
+    height: 						83px;
+    position: 						relative;
+}
+.label {
+	border-style: 					solid;
+    border-width: 					1px 0;
+    clear: 							both;
+    height: 						51px;
+    line-height: 					51px;
+}
+
+.label.darkgray {
+    background: 					url("../../img/label_bg_darkgray.jpg") repeat-x scroll 0 0 transparent;
+    border-color: 					#5F5F5F;
+}
+
+.label p {
+	color: 							#FFFFFF;
+	display: 						inline-block;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						30px;
+    margin: 						0 26px;
+    text-shadow: 					1px 1px 0 rgba(0, 0, 0, 0.25);
+    text-transform: 				uppercase;
+}
+
+#footer {
+	height:							54px;
+	margin-top:						5px;
+	position:						static;
+	top:							0;
+}
+
+#footer .label {
+    border-right-width: 			1px;
+    display: 						inline-block;
+	float:							left;
+    width: 							auto;
+}
+
+#footer .label p img {
+    bottom: 						2px;
+    margin-left: 					5px;
+    position: 						relative;
+    vertical-align: 				middle;
+}
+
+#footer_info {
+    color: 							#373636;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						16px;
+	float:							right;
+	width: 							380px;
+    text-transform: 				uppercase;
+	line-height: 					26px;
+}
+
+#footer_info a {
+    color: 							#F35100;
+}
+
+  /****************/
+ /*** VOORRAAD ***/
+/****************/
+.options {
+    color: 							#888888;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						30px;
+    line-height: 					45px;
+	height:							45px;
+    text-shadow: 					0 1px #FFFFFF;
+    text-transform:					uppercase;
+    z-index: 						2;
+	padding-right:					27px;
+}
+
+.options .top {
+    float:							right;
+}
+
+.options p {
+    display: 						inline;
+    margin-right: 					5px;
+}
+
+.options a {
+    color: 							#B1B1B1;
+}
+
+.options a:hover, .options a.active {
+    color: 							#F35100;
+}
+
+.options .divider {
+    background: 					none repeat scroll 0 0 #888888;
+    display: 						inline-block;
+    height: 						19px;
+    margin: 						0 5px;
+    position: 						relative;
+    top: 							1px;
+    width: 							1px;
+}
+
+.control img {
+    bottom: 						15px;
+    position: 						relative;
+}
+
+.car.list, .car.detail {
+    margin-top: 					20px;
+}
+
+.car.list {
+    height: 						120px;
+}
+
+.car {
+    background: 					none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 					1px 1px 2px rgba(0, 0, 0, 0.3);
+    padding: 						5px;
+    position: 						relative;
+}
+
+a.full, input.full[type="submit"] {
+    height: 						100%;
+    left: 							0;
+    position: 						absolute;
+    top: 							0;
+    width: 							100%;
+    z-index: 						3;
+}
+
+.car.list .newprice, .car.detail .newprice {
+    background: 					url("../../img/newprice_r.png") no-repeat scroll 0 0 transparent;
+    height: 						31px;
+    position: 						absolute;
+    right: 							0;
+    top: 							58px;
+    width: 							151px;
+}
+
+.car.list .details, .car.detail .details {
+    float: 							right;
+    height: 						120px;
+	margin-right: 					130px;
+    margin-top: 					2px;
+    position: 						relative;
+    width: 							357px;
+}
+
+.car.list .label, .car.detail .label {
+    border-left-width: 				1px;
+    height: 						40px;
+    line-height: 					40px;
+    position: 						absolute;
+    right: 							0;
+    text-align: 					right;
+    top: 							8px;
+    width: 							130px;
+}
+
+.label.orange, .label.orange > div.left, .label.orange > div.right {
+    background: 					url("../../img/label_bg_orange.jpg") repeat-x scroll 0 0 #F55300;
+    border-color: 					#D91111;
+}
+
+.label.green, .label.green > div.left, .label.green > div.right {
+    background: 					url("../img/label_bg_green.jpg") repeat-x scroll 0 0 #458F00;
+    border-color: 					#4C940A;
+}
+
+.car.block .label > p, .car.list .label > p, .car.detail .label > p {
+    color: 							#FFFFFF;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						24px;
+    margin: 						0 10px 0 0;
+}
+
+.car.list > img, .car.detail .left > img {
+    height: 						120px;
+}
+
+.car.list .details > p {
+    bottom: 						112px;
+}
+
+.car.detail .details > p, .car.list .details > p {
+	float:							left;
+	line-height: 					27px;
+}
+
+.car > p, .car .details > p {
+    color: 							#797979;
+    display: 						inline;
+    font-family: 					'Impact',sans-serif;
+	font-size:						24px;
+	line-height:					26px;
+}
+
+.car .details > p.subtext {
+	position:						absolute;
+	left:							0;
+	bottom: 						6px;
+    font-size: 						22px;
+}
+
+.car.list .details .col {
+    margin-top: 					40px;
+}
+
+.car.list .details .col, .car.detail .details .col {
+    color: 							#B2B1B1;
+    float: 							left;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						14px;
+    line-height: 					21px;
+    margin-right: 					10px;
+    width: 							205px;
+}
+
+.car.list .details .col strong, .car.detail .details .col strong {
+    color: 							#797979;
+    font-weight: 					normal;
+}
+
+.more_info {
+    bottom: 						15px;
+    color: 							#505050;
+    display: 						block;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						17px;
+    height: 						21px;
+    position: 						absolute;
+    right: 							8px;
+    text-transform: 				uppercase;
+}
+
+.nofound {
+    color: 							#888888;
+    font-family: 					'Impact',sans-serif;
+    font-size: 						26px;
+    margin: 						40px;
+}
+
+.ajax_loader {
+	background:						url('../ajax/load.gif') center center no-repeat;
+	height:							16px;
+}
+
+#search_adv {
+	height:							100px;
+	clear:							both;
+	color:							#888;
+	font-size:						30px;
+	line-height:					45px;
+	float:							right;
+	width:							474px;
+	position:						relative;
+	padding-top: 					5px;
+}
+/**
+#search_adv select {
+	float:							right;
+	margin-top:						5px;
+	font-size:						25px;
+	width:							340px;
+	line-height:					35px;
+	border-radius: 					6px 0 0 6px;
+    box-shadow: 					1px 2px 3px #CCCCCC inset;
+	font-family: 					'Impact',sans-serif;
+	color:							#888888;
+	margin-right:					28px;
+
+	padding-left:					5px;
+}**/
+
+#search_adv label {
+	position:						absolute;
+	left:							20px;
+	top:							14px;
+}
+
+#search_adv label[for=select_model] {
+	top:							65px;
+}
+

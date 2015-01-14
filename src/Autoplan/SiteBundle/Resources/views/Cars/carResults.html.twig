@@ -1,0 +1,23 @@
+{% for car in cars %}
+    {{ render(controller('AutoplanSiteBundle:Cars:carSearchResult', {'car': car})) }}
+{% endfor %}
+{% if page < max_pages %}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="loadMore">
+    <a class="btn btn-block btn-default" href="#">Laad meer auto&rsquo;s<span class="icon-arrow-down"></span></a>
+</div>
+
+<script type="text/javascript">
+    $('#loadMore a').on('click', function() {
+        $.ajax({
+            type: "GET",
+            data: "page=" + {{ page+1 }}, // appears as $_GET['id'] @ ur backend side
+            success: function(data) {
+                // data is ur summary
+                $('#loadMore').remove();
+                $('#stocklist').append(data);
+            }
+        });
+        return false;
+    });
+</script>
+{% endif %}
