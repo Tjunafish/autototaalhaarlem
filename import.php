@@ -2,7 +2,7 @@
 $log = fopen('../log.txt','a');
 
 fwrite($log,"[".date('H:i:s d-m-Y')."] REQUEST MADE FROM: ".$_SERVER['REMOTE_ADDR']."\n");
-
+// var_dump($_SERVER['REMOTE_ADDR']);
 if ($_SERVER['REMOTE_ADDR'] != '82.94.240.8'){
 // if($_SERVER['REMOTE_ADDR'] != '82.94.237.8'){ // Request from, invalid server
 	

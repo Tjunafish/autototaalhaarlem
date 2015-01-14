@@ -4,18 +4,18 @@ $error = array();
 if($_POST){
 
 	$checks 	  	= array();
-	$checks[name] 	= array($_POST[name],	'empty',		'voornaam');
-	$checks[email]	= array($_POST[email],	'empty email');
-	$checks[msg]	= array($_POST[msg],	'empty',		'vraag of opmerking');
+	$checks['name'] 	= array($_POST['name'],	'empty',		'voornaam');
+	$checks['email']	= array($_POST['email'],	'empty email');
+	$checks['msg']	= array($_POST['msg'],	'empty',		'vraag of opmerking');
 	
 	$error = core::validate($checks);
 	
 	if(count($error) == 0)	
 		core::send_mail(core::$mail_from,'Nieuw bericht via Autoservicehaarlem.nl',
-					   '<b>Naam: </b>'.$_POST[name].' '.$_POST[lastname].'<br/>'.
-			   		   ($_POST[phone] ? '<b>Telefoonnummer:</b> '.$_POST[phone].'<br/>' : '').
-			   		   '<b>E-mailadres: </b>'.$_POST[email].'<br/>'.
-			   		   '<b>Bericht:</b><br/>'.$_POST[msg]);
+					   '<b>Naam: </b>'.$_POST['name'].' '.$_POST['lastname'].'<br/>'.
+			   		   ($_POST['phone'] ? '<b>Telefoonnummer:</b> '.$_POST['phone'].'<br/>' : '').
+			   		   '<b>E-mailadres: </b>'.$_POST['email'].'<br/>'.
+			   		   '<b>Bericht:</b><br/>'.$_POST['msg']);
 	
 }
 ?>
@@ -47,12 +47,12 @@ if($_POST){
 				?>
 				<form method="POST">
 			
-					<input class="clickclear <?= $error[name]  ? 'error' : '' ?>" type="text" name="name"  value="<?= $_POST[name]  ? $_POST[name]  : 'voornaam'    ?>"   />			
-					<input class="clickclear" type="text" name="lastname" 	value="<?= $_POST[lastname] ? $_POST[lastname] 	: 'achternaam' 		?>" />
-					<input class="clickclear" type="text" name="phone" 		value="<?= $_POST[phone] 	? $_POST[phone] 	: 'telefoonnummer' 	?>" />	
-					<input class="clickclear <?= $error[email] ? 'error' : '' ?>" type="text" name="email" value="<?= $_POST[email] ? $_POST[email] : 'e-mailadres'	?>" />
+					<input class="clickclear <?= $error['name']  ? 'error' : '' ?>" type="text" name="name"  value="<?= $_POST['name']  ? $_POST['name']  : 'voornaam'    ?>"   />			
+					<input class="clickclear" type="text" name="lastname" 	value="<?= $_POST['lastname'] ? $_POST['lastname'] 	: 'achternaam' 		?>" />
+					<input class="clickclear" type="text" name="phone" 		value="<?= $_POST['phone'] 	? $_POST['phone'] 	: 'telefoonnummer' 	?>" />	
+					<input class="clickclear <?= $error['email'] ? 'error' : '' ?>" type="text" name="email" value="<?= $_POST['email'] ? $_POST['email'] : 'e-mailadres'	?>" />
 					
-					<textarea class="clickclear <?= $error[msg] ? 'error': '' ?>" name="msg"><?= $_POST[msg] ? $_POST[msg] : 'vraag of opmerking' ?></textarea>
+					<textarea class="clickclear <?= $error['msg'] ? 'error': '' ?>" name="msg"><?= $_POST['msg'] ? $_POST['msg'] : 'vraag of opmerking' ?></textarea>
 					
 					<input type="submit" value="verstuur bericht" />
 				

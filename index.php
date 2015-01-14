@@ -64,9 +64,9 @@ require 'php/config.php';
     <script type="text/javascript" src="js/jquery.tiptip.min.js"></script>
     
 	<?
-	if(core::$cur_page[bg_color] || core::$cur_page[bg_image] ||  core::$cur_page[id] == 9){
+	if(core::$cur_page['bg_color'] || core::$cur_page['bg_image'] ||  core::$cur_page['id'] == 9){
 	
-		if(core::$cur_page[id] == 9){
+		if(core::$cur_page['id'] == 9){
 		
 			$domain = str_replace('http://','',$_SERVER[HTTP_REFERER]);
 			$domain = str_replace('www.',	'',$domain);
@@ -75,8 +75,8 @@ require 'php/config.php';
 			if(sql::exists("landing",array("domain"=>$domain)))
 				list($landing) = sql::fetch("array","landing","WHERE `domain` = '".sql::escape($domain)."'");
 				
-			core::$cur_page[bg_color] = $landing[bg_color];
-			core::$cur_page[bg_image] = $landing[bg_image];
+			core::$cur_page['bg_color'] = $landing['bg_color'];
+			core::$cur_page['bg_image'] = $landing['bg_image'];
 		
 		}	
 		?>	
@@ -84,7 +84,7 @@ require 'php/config.php';
 		body {
 			<?
 			if(core::$cur_page[bg_color]) 
-				echo 'background-color: 	#'.core::$cur_page[bg_color].";\n";
+				echo 'background-color: 	#'.core::$cur_page[bg_color]."\n";
 			
 			if(core::$cur_page[bg_image])
 				echo 'background-image: 	url(\''.core::$cur_page[bg_image].'\');
@@ -129,16 +129,16 @@ require 'php/config.php';
 			
 		<?				
 			foreach(core::$pages as $page)
-				if(preg_match('/top/',$page[position]))
+				if(preg_match('/top/',$page['position']))
 				echo '<li '.($page == core::$cur_page ? 'class="active"' : '').'>
-					  <a href="'.$page[slug].'" target="_top">'.$page[title].'</a></li>';
+					  <a href="'.$page['slug'].'" target="_top">'.$page['title'].'</a></li>';
 		?>
 
 		</ul>
 		
 		<form id="search" method="post" action="<?= core::page_url('id',2) ?>" target="_top">
 					
-			<input <?= core::$cur_page[file] == 'sub/voorraad.php' && !$_GET[item] && core::$cur_page[id] != 3 ? 'id="search_ajax"' : '' ?> type="text"  name="string" value="<?= $_POST[string] ? $_POST[string] : ($_SESSION[string] && SESSION_MATCH ? $_SESSION[string] : 'vind hier je nieuwe auto'); ?>" class="clickclear" />
+			<input <?= core::$cur_page['file'] == 'sub/voorraad.php' && !$_GET['item'] && core::$cur_page['id'] != 3 ? 'id="search_ajax"' : '' ?> type="text"  name="string" value="<?= $_POST[string] ? $_POST[string] : ($_SESSION[string] && SESSION_MATCH ? $_SESSION[string] : 'vind hier je nieuwe auto'); ?>" class="clickclear" />
 			<input type="image" src="img/search.jpg" />
 					
 		</form>
@@ -157,7 +157,7 @@ if(core::$cur_page['id'] != 5 && core::$cur_page['id'] != 10) {
 	$slides = sql::fetch("array","banners","WHERE `active` = '1' ORDER BY `order` ASC");
 	
 	foreach($slides as $slide)
-		echo '<li><a href="'.$slide[link].'"><img src="'.$slide[img].'" alt="'.$slide[text].'" /><p>'.$slide[text].'</p></a></li>';
+		echo '<li><a href="'.$slide['link'].'"><img src="'.$slide['img'].'" alt="'.$slide['text'].'" /><p>'.$slide['text'].'</p></a></li>';
 	?>
 	
 	<div class="slider_pages"></div>
@@ -199,19 +199,19 @@ if(core::$cur_page['id'] == 9){ // Landingspagina
 
 
 
-<div <?= core::$cur_page[id] == 4 || $landing['fuel'] == 'H' ? 'class="green"' : '' ?>>
+<div <?= core::$cur_page['id'] == 4 || $landing['fuel'] == 'H' ? 'class="green"' : '' ?>>
 
 
 
-	<div <?= core::$cur_page[id] == 1 ? 'style="padding-bottom:0;"' : '' ?>>
+	<div <?= core::$cur_page['id'] == 1 ? 'style="padding-bottom:0;"' : '' ?>>
 	
 		
 		
 		<?		
-		if($_GET['item'] && core::$cur_page[item_file] && file_exists(core::$cur_page[item_file]))
-			require core::$cur_page[item_file];
-		elseif(core::$cur_page[file] && file_exists(core::$cur_page[file]))
-			require core::$cur_page[file];
+		if($_GET['item'] && core::$cur_page['item_file'] && file_exists(core::$cur_page['item_file']))
+			require core::$cur_page['item_file'];
+		elseif(core::$cur_page['file'] && file_exists(core::$cur_page['file']))
+			require core::$cur_page['file'];
 		?>
 		
 	</div>
@@ -226,7 +226,7 @@ if(core::$cur_page['id'] == 9){ // Landingspagina
 
 <div id="footer">
 	<div class="wrapper-container">
-		<? if(core::$cur_page[id] != 1){ ?>
+		<? if(core::$cur_page['id'] != 1){ ?>
 		<div class="label darkgray">
 		
 			<!--<div class="left">
@@ -257,8 +257,8 @@ if(core::$cur_page['id'] == 9){ // Landingspagina
 	
 			<?
 			foreach(core::$pages as $page)
-				if(preg_match('/bottom/',$page[position]))
-					echo '<a '.($page == core::$cur_page ? 'class="active"' : '').' href="'.$page[slug].'" target="_top">'.$page[title].'</a>';
+				if(preg_match('/bottom/',$page['position']))
+					echo '<a '.($page == core::$cur_page ? 'class="active"' : '').' href="'.$page['slug'].'" target="_top">'.$page['title'].'</a>';
 			?>
 			<a href="http://www.santander.nl/" target="_blank">Financieringen</a>
 			<a href="<?= core::page_url('id',10) ?>">Favorieten</a>

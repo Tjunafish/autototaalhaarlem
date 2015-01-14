@@ -249,16 +249,16 @@ class core {
 		if(!is_numeric($current) || $current < 1)
 			$current = 1;
 			
-		$return[perpage] = $perpage;
-		$return[total]	 = ceil($total / $perpage);
+		$return['perpage'] = $perpage;
+		$return['total']	 = ceil($total / $perpage);
 		
-		if($return[total] < 1)
-			$return[total] = 1;
+		if($return['total'] < 1)
+			$return['total'] = 1;
 		
-		if($current > $return[total])
-			$current = $return[total];
+		if($current > $return['total'])
+			$current = $return['total'];
 			
-		$return[current] = $current;
+		$return['current'] = $current;
 		
 		if($limit > 0){
 		
@@ -269,10 +269,10 @@ class core {
 				$start = 1;
 								  
 			$end   = $current < $total - 2 	? $current + 2
-											: $return[total];
+											: $return['total'];
 			
-			if($end > $return[total])
-				$end = $return[total];
+			if($end > $return['total'])
+				$end = $return['total'];
 			
 			$diff  = $end - $start;
 			
@@ -288,16 +288,16 @@ class core {
 			if($start < 1)
 				$start = 1;
 				
-			if($end > $return[total])
-				$end = $return[total];
+			if($end > $return['total'])
+				$end = $return['total'];
 			
-			$return[start] = $start;
-			$return[end]   = $end;			
+			$return['start'] = $start;
+			$return['end']   = $end;			
 		
 		}else{
 		
-			$return[start] = 1;
-			$return[end]   = $return[total];
+			$return['start'] = 1;
+			$return['end']   = $return['total'];
 		
 		}
 		
@@ -306,7 +306,7 @@ class core {
 		if($minlimit < 0)
 			$minlimit = 0;
 			
-		$return[limit] = $minlimit.','.$perpage;
+		$return['limit'] = $minlimit.','.$perpage;
 		
 		return $return;
 	
@@ -476,22 +476,22 @@ class core {
 		foreach($fields as $field)
 			$values[] = sql::escape($item[$field]);
 			
-		$backup[fields] = $fields;
-		$backup[values] = $values;
+		$backup['fields'] = $fields;
+		$backup['values'] = $values;
 		
 		$return = array();
 		$diff   = $limit;
 		$keys   = array($item[$key]);
 		
-		while(count($return) < $limit && count($backup[fields]) > 0){
+		while(count($return) < $limit && count($backup['fields']) > 0){
 		
 			if(count($fields) == 0){
 			
-				array_shift($backup[fields]);
-				array_shift($backup[values]);
+				array_shift($backup['fields']);
+				array_shift($backup['values']);
 				
-				$fields = $backup[fields];
-				$values = $backup[values];
+				$fields = $backup['fields'];
+				$values = $backup['values'];
 			
 			}
 				
@@ -558,11 +558,11 @@ class core {
 					     sql::fetch("object","sections","WHERE `id` = 1")->slug);
 					   
  		if(core::$cur_page[id] != 1) 		
- 			$trail[] = array(self::$cur_page[title],$_GET[section]);
+ 			$trail[] = array(self::$cur_page['title'],$_GET['section']);
  			
-		if(core::$cur_page[item_file] == 'sub/detail.php' && $_GET[item]){
+		if(core::$cur_page['item_file'] == 'sub/detail.php' && $_GET['item']){
 		
-			$tmp   		 		= explode("-",$_GET[item]);	
+			$tmp   		 		= explode("-",$_GET['item']);	
 			$nr    		 		= array_pop($tmp);
 						
 			list($car)   		= sql::fetch("array","cars","WHERE `voertuignr` = '".sql::escape($nr)."'");
@@ -570,7 +570,7 @@ class core {
 			if(!$car)
 				list($car) 		= sql::fetch("array","cars","ORDER BY `created_at` DESC LIMIT 1");
 				
-			$trail[] = array($car[merk].' '.$car[model],self::car_url($car));
+			$trail[] = array($car['merk'].' '.$car['model'],self::car_url($car));
 					
 		}
 	
@@ -590,11 +590,11 @@ class core {
 	
 	static function calc_metadata(){
 	
-		$extra = self::$cur_page[title] ? ' - '.self::$cur_page[title] : '';
+		$extra = self::$cur_page['title'] ? ' - '.self::$cur_page['title'] : '';
 		
-		if(self::$cur_page[item_file] == 'sub/detail.php' && $_GET[item]){
+		if(self::$cur_page['item_file'] == 'sub/detail.php' && $_GET['item']){
 		
-			$tmp   		 		= explode("-",$_GET[item]);	
+			$tmp   		 		= explode("-",$_GET['item']);	
 			$nr    		 		= array_pop($tmp);
 						
 			list($car)   		= sql::fetch("array","cars","WHERE `voertuignr` = '".sql::escape($nr)."'");
@@ -602,26 +602,26 @@ class core {
 			if(!$car)
 				list($car) 		= sql::fetch("array","cars","ORDER BY `created_at` DESC LIMIT 1");
 			
-			$extra 		 		= ' - '.$car[merk].' '.$car[model];
+			$extra 		 		= ' - '.$car['merk'].' '.$car['model'];
 		
 			list(self::$fbimg)  = self::car_thumbs($car);
 			self::$fbimg		= ROOT.self::$fbimg;
 
-			self::$metadesc		= substr(str_replace('*','',preg_replace('/(\s*,\s*([^\s])\s*)+/',"$2, ",$car[accessoires])),0,150);
+			self::$metadesc		= substr(str_replace('*','',preg_replace('/(\s*,\s*([^\s])\s*)+/',"$2, ",$car['accessoires'])),0,150);
 			
-			$keys				= array($car[merk],
-										$car[merk].' '.$car[model],
-										$car[carrosserie],
-										self::string('transmissie '.$car[transmissie]),
-										self::string('brandstof '.$car[brandstof]),
-										$car[aantal_zitplaatsen].' zitplaatsen',
-										$car[aantal_deuren].' deurs',
-										($car[kleur] ? $car[kleur] : $car[basiskleur]),
-										$car[bouwjaar]);
+			$keys				= array($car['merk'],
+										$car['merk'].' '.$car['model'],
+										$car['carrosserie'],
+										self::string('transmissie '.$car['transmissie']),
+										self::string('brandstof '.$car['brandstof']),
+										$car['aantal_zitplaatsen'].' zitplaatsen',
+										$car['aantal_deuren'].' deurs',
+										($car[kleur] ? $car['kleur'] : $car['basiskleur']),
+										$car['bouwjaar']);
 										
 			self::$metakeys    .= ", ".implode(", ",$keys);
 		
-		}elseif(self::$cur_page[id] == 9){ // Landingspages
+		}elseif(self::$cur_page['id'] == 9){ // Landingspages
 		
 			$domain = str_replace('http://','',$_SERVER[HTTP_REFERER]);
 			$domain = str_replace('www.',	'',$domain);
@@ -633,7 +633,7 @@ class core {
 				$landing = false;
 				
 			if($landing)
-				$extra = '- '.$landing[title];
+				$extra = '- '.$landing['title'];
 		
 		}
 		
@@ -679,7 +679,7 @@ class core {
 		
 			foreach($cars as $car){
 			
-				$color = $car[milieu_bewust] ? 'green'
+				$color = $car['milieu_bewust'] ? 'green'
 											 : 'orange';
 						
 				list($thumb) = self::car_thumbs($car);
@@ -688,12 +688,12 @@ class core {
 				
 					<a href="<?= self::car_url($car) ?>" class="full"></a>
 					
-					<?= $car[newprice] == 1 ? '<div class="newprice"></div>' : '' ?>
-					<?= $car[verkocht] == 'j' ? '<div class="sold '.$color.'"></div>' : '' ?>
+					<?= $car['newprice'] == 1 ? '<div class="newprice"></div>' : '' ?>
+					<?= $car['verkocht'] == 'j' ? '<div class="sold '.$color.'"></div>' : '' ?>
 				
-					<img src="<?= $thumb ?>" alt="<?= $car[merk].' '.$car[model] ?>" />
+					<img src="<?= $thumb ?>" alt="<?= $car['merk'].' '.$car['model'] ?>" />
 					
-					<p class="textfit" rel="190"><?= $car[merk].' '.$car[model] ?></p>
+					<p class="textfit" rel="190"><?= $car['merk'].' '.$car['model'] ?></p>
 					
 					<div class="label <?= $color ?>">
 			
@@ -719,7 +719,7 @@ class core {
 		}else
 			foreach($cars as $car){
 			
-				$color       = $car[milieu_bewust] ? 'green'
+				$color       = $car['milieu_bewust'] ? 'green'
 											 	   : 'orange';
 		
 				list($thumb) = self::car_thumbs($car);
@@ -732,36 +732,36 @@ class core {
 					
 					<a href="<?= self::car_url($car) ?>" class="full" target="_top"></a>
 					
-					<?= $car[verkocht] == 'j' ? '<div class="sold '.$color.'"></div>' : '' ?>
-					<?= $car[newprice] == 1 ? '<div class="newprice"></div>' : '' ?>
+					<?= $car['verkocht'] == 'j' ? '<div class="sold '.$color.'"></div>' : '' ?>
+					<?= $car['newprice'] == 1 ? '<div class="newprice"></div>' : '' ?>
 					
-					<img src="<?= $thumb ?>" alt="<?= $car[merk].' '.$car[model] ?>" />
+					<img src="<?= $thumb ?>" alt="<?= $car['merk'].' '.$car['model'] ?>" />
 					
 					<div class="details">
 					
-						<p class="textfit" rel="514"><?= $car[merk].' '.$car[model].' '.$car[type] ?></p>
+						<p class="textfit" rel="514"><?= $car['merk'].' '.$car['model'].' '.$car['type'] ?></p>
 										
 						<div class="col">
 		
-							<strong>Model:</strong> 			<?= $car[model] 		?><br />
-							<strong>Carosserievorm:</strong> 	<?= $car[carrosserie] 	?><br />
-							<strong>Brandstof:</strong> 		<?= self::string("brandstof ".$car[brandstof]) ?>
+							<strong>Model:</strong> 			<?= $car['model'] 		?><br />
+							<strong>Carosserievorm:</strong> 	<?= $car['carrosserie'] 	?><br />
+							<strong>Brandstof:</strong> 		<?= self::string("brandstof ".$car['brandstof']) ?>
 						
 						</div>
 						
 						<div class="col">
 						
-							<strong>Bouwjaar:</strong> 			<?= $car[bouwjaar] 		?><br />
-							<strong>Transmissie:</strong> 		<?= self::string("transmissie ".$car[transmissie]) 	?><br />
-							<strong>Aantal deuren:</strong> 	<?= $car[aantal_deuren] ?>
+							<strong>Bouwjaar:</strong> 			<?= $car['bouwjaar'] 		?><br />
+							<strong>Transmissie:</strong> 		<?= self::string("transmissie ".$car['transmissie']) 	?><br />
+							<strong>Aantal deuren:</strong> 	<?= $car['aantal_deuren'] ?>
 						
 						</div>
 						
 						<div class="col">
 						
-							<strong>Kilometerstand:</strong> 	<?= $car[tellerstand].' '.self::string("eenheden ".$car[tellerstand_eenheid]) ?><br />
-							<strong>Cilinderinhoud:</strong> 	<?= $car[cilinderinhoud] 							?> cc<br />
-							<strong>Kleur:</strong>  			<?= $car[basiskleur].' '.$car[laksoort]	?>
+							<strong>Kilometerstand:</strong> 	<?= $car['tellerstand'].' '.self::string("eenheden ".$car['tellerstand_eenheid']) ?><br />
+							<strong>Cilinderinhoud:</strong> 	<?= $car['cilinderinhoud'] 							?> cc<br />
+							<strong>Kleur:</strong>  			<?= $car['basiskleur'].' '.$car['laksoort']	?>
 						
 						</div>
 						
@@ -790,9 +790,9 @@ class core {
 					
 					<div class="share">
 					
-						<a href="#" class="toggle_fav" <?= core::$cur_page[id] == 10 ? 'rel="fav_page"' : '' ?> title="Favorieten" data-car="<?=$car[voertuignr]?>"><img src="img/icon_fav<?= $favorites[$car[voertuignr]] ? '_min' : '' ?>.jpg" rel="fav"  alt="Favorieten"/></a>
-						<a href="<?= social::share_url('twitter', $car[merk].' '.$car[model].' op Autoservicehaarlem.nl',ROOT.self::car_url($car)) ?>" target="_blank" title="Deel op Twitter">	<img src="img/icon_twit.jpg" alt="Twitter" 	 /></a>
-						<a href="<?= social::share_url('facebook',$car[merk].' '.$car[model].' op Autoservicehaarlem.nl',ROOT.self::car_url($car)) ?>" target="_blank" title="Deel op Facebook"> <img src="img/icon_fb.jpg"	 alt="Facebook"	 /></a>
+						<a href="#" class="toggle_fav" <?= core::$cur_page['id'] == 10 ? 'rel="fav_page"' : '' ?> title="Favorieten" data-car="<?=$car['voertuignr']?>"><img src="img/icon_fav<?= $favorites[$car['voertuignr']] ? '_min' : '' ?>.jpg" rel="fav"  alt="Favorieten"/></a>
+						<a href="<?= social::share_url('twitter', $car['merk'].' '.$car['model'].' op Autoservicehaarlem.nl',ROOT.self::car_url($car)) ?>" target="_blank" title="Deel op Twitter">	<img src="img/icon_twit.jpg" alt="Twitter" 	 /></a>
+						<a href="<?= social::share_url('facebook',$car['merk'].' '.$car['model'].' op Autoservicehaarlem.nl',ROOT.self::car_url($car)) ?>" target="_blank" title="Deel op Facebook"> <img src="img/icon_fb.jpg"	 alt="Facebook"	 /></a>
 						
 					</div>
 					
@@ -811,7 +811,7 @@ class core {
 		if(is_object($car))
 			$car = get_object_vars($car);
 	
-		return ($car[milieu_bewust] == 1 ? core::page_url('id',4) : core::page_url('id',2)).'/'.self::slug($car[merk]." ".$car[model]." ".$car[voertuignr]).".html";
+		return ($car['milieu_bewust'] == 1 ? core::page_url('id',4) : core::page_url('id',2)).'/'.self::slug($car['merk']." ".$car['model']." ".$car['voertuignr']).".html";
 	
 	}
 	
@@ -823,10 +823,10 @@ class core {
  
  	static function car_price($car){
  	
- 		if($car[actieprijs] > 0)
- 			$price = $car[actieprijs];
+ 		if($car['actieprijs'] > 0)
+ 			$price = $car['actieprijs'];
 		else
-			$price = $car[verkoopprijs_particulier];
+			$price = $car['verkoopprijs_particulier'];
  	
  		return self::num_format($price);
  	
@@ -834,11 +834,11 @@ class core {
  	
  	static function car_thumbs($car){
  	
- 		$thumbs = array('img/cars/'.$car[voertuignr].'_thumb.jpg');
+ 		$thumbs = array('img/cars/'.$car['voertuignr'].'_thumb.jpg');
  		
- 		for($i = 0;$i < count(explode(",",$car[afbeeldingen]));$i++) 
-		 	if(file_exists(dirname(__FILE__).'/../img/cars/'.$car[voertuignr].'_'.$i.'.jpg'))		
-				$thumbs[] = 'img/cars/'.$car[voertuignr].'_'.$i.'.jpg';
+ 		for($i = 0;$i < count(explode(",",$car['afbeeldingen']));$i++) 
+		 	if(file_exists(dirname(__FILE__).'/../img/cars/'.$car['voertuignr'].'_'.$i.'.jpg'))		
+				$thumbs[] = 'img/cars/'.$car['voertuignr'].'_'.$i.'.jpg';
 			
 		return $thumbs;
  	

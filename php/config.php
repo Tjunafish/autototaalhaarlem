@@ -38,14 +38,14 @@ core::$default_lang			= 'nl';
  
 core::$default_page			= array('id',1); // default page, table field then value
 
-core::$social[facebook]		= 'http://www.facebook.com/autototaalhaarlem';
-core::$social[twitter]		= 'http://twitter.com/ASH_cars';
-core::$social[youtube]		= 'http://www.youtube.com/user/mlo369';
+core::$social['facebook']		= 'http://www.facebook.com/autototaalhaarlem';
+core::$social['twitter']		= 'http://twitter.com/ASH_cars';
+core::$social['youtube']		= 'http://www.youtube.com/user/mlo369';
  
 // Javascript libraries
 // --------------------
  
-core::$jslibs[jquery] 		= true; // Look at core to see what libraries are available
+core::$jslibs['jquery'] 		= true; // Look at core to see what libraries are available
  
 // Database settings
 // -----------------
@@ -57,14 +57,14 @@ sql::$db   					= 'autototaal';
  
 core::calculate();
 
-if(core::$cur_page[id] == 3) // Aanbiedingen pagina
+if(core::$cur_page['id'] == 3) // Aanbiedingen pagina
     $test = 'actieprijs';
-elseif(core::$cur_page[id] == 4) // Milieubewust pagina
+elseif(core::$cur_page['id'] == 4) // Milieubewust pagina
     $test = 'milieu_bewust';  
 else    
     $test = 'voorraad';
     
-define(SESSION_MATCH,       $_SESSION[special] == $test);
+define(SESSION_MATCH,       $_SESSION['special'] == $test);
 
 // E-mail settings
 // ---------------
