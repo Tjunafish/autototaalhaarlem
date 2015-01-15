@@ -12,7 +12,7 @@ $last = end($cars);
 		<div id="container">
 	
 			<div id="rotate_contain" style="height: 180px">
-				<div id="cars_rotate" data-start="<?= $last[created_at] ?>">
+				<div id="cars_rotate" data-start="<?= $last['created_at'] ?>">
 				
 					<?	
 					core::draw_cars(4,$cars);
@@ -23,7 +23,7 @@ $last = end($cars);
 				</div>
 			</div>
 			<div id="rotate_contain" style="height: 180px;margin-bottom: 60px;margin-top:-30px">
-				<div id="cars_rotate" data-start="<?= $last[created_at] ?>">
+				<div id="cars_rotate" data-start="<?= $last['created_at'] ?>">
 			
 					<?
 					core::draw_cars(4,$cars2);
@@ -140,31 +140,31 @@ $last = end($cars);
 			
 				<?
 				list($car)   = sql::fetch("array","cars","WHERE `best_day_deal` = 1 && `active` = 1 ORDER BY `created_at` LIMIT 1");
-				list($thumb) = explode(",",$car[afbeeldingen]);
+				list($thumb) = explode(",",$car['afbeeldingen']);
 				?>
 				
-				<div id="spotlight" <?= $car[milieu_bewust] ? 'class="green"' : '' ?>>
+				<div id="spotlight" <?= $car['milieu_bewust'] ? 'class="green"' : '' ?>>
 			
 					<a href="<?=core::car_url($car)?>" class="full"></a>
-					<img src="<?= $thumb ?>" alt="<?= $car[merk].' '.$car[model] ?>" />
+					<img src="<?= $thumb ?>" alt="<?= $car['merk'].' '.$car['model'] ?>" />
 					
 					<div class="spotlight-header">
 						<h2>
 						Best day deal!<br />
 						<?
-						if($car[actieprijs]){
+						if($car['actieprijs']){
 						?>
-						<span class="small">van</span> <span class="strike">&euro; <?= core::num_format($car[verkoopprijs_particulier]) ?></span> <span class="small">voor</span> &euro; <?= core::num_format($car[actieprijs]) ?>
+						<span class="small">van</span> <span class="strike">&euro; <?= core::num_format($car['verkoopprijs_particulier']) ?></span> <span class="small">voor</span> &euro; <?= core::num_format($car['actieprijs']) ?>
 						<?
 						}else{
 						?>
-						<span class="small">voor</span> &euro; <?= core::num_format($car[verkoopprijs_particulier]) ?>
+						<span class="small">voor</span> &euro; <?= core::num_format($car['verkoopprijs_particulier']) ?>
 						<?
 						}
 						?>
 						</h2>
 					</div>
-					<p><?= $car[merk].' '.$car[model].' '.$car[type] ?></p>
+					<p><?= $car['merk'].' '.$car['model'].' '.$car['type'] ?></p>
 				
 				</div>
 				
@@ -180,7 +180,7 @@ $last = end($cars);
 						$facts = sql::fetch("array","didyouknow","ORDER BY `order` ASC");
 						
 						foreach($facts as $fact)			
-							echo '<li>'.($fact[link] ? '<a href="'.$fact[link].'">' : '').$fact[text].($fact[link] ? '</a>' : '').'</li>';
+							echo '<li>'.($fact['link'] ? '<a href="'.$fact['link'].'">' : '').$fact['text'].($fact['link'] ? '</a>' : '').'</li>';
 						?>
 					
 					</ul>

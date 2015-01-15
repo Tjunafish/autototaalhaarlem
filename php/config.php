@@ -23,9 +23,9 @@ require_once 'social/_social.php';
 // General settings
 // ----------------
  
-define(ROOT,		  		'http://www.autototaalhaarlem.nl/');
-define(COOKIE_DOMAIN,		'/');
-define(LUXUS,        		$_SERVER['REMOTE_ADDR'] == '90.145.41.202');
+define('ROOT',		  		'http://www.autototaalhaarlem.nl/');
+define('COOKIE_DOMAIN',		'/');
+define('LUXUS',        		$_SERVER['REMOTE_ADDR'] == '90.145.41.202');
 
 core::$favicon 				= 'favicon.png';
  
@@ -64,7 +64,7 @@ elseif(core::$cur_page['id'] == 4) // Milieubewust pagina
 else    
     $test = 'voorraad';
     
-define(SESSION_MATCH,       $_SESSION['special'] == $test);
+define('SESSION_MATCH',       $_SESSION['special'] == $test);
 
 // E-mail settings
 // ---------------

@@ -38,7 +38,7 @@ class core {
  
 	static function calculate(){
 
-		define(CURRENT_URL,	'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+		define('CURRENT_URL',	'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
  
 		sql::connect();
  
@@ -83,7 +83,7 @@ class core {
 		if($lang && $lang != $_COOKIE['language'])			
 			self::set_language($lang);
  
-		define(LANGUAGE,$lang);
+		define('LANGUAGE',$lang);
  
 		setlocale(LC_TIME,$locales[$lang]);
  
