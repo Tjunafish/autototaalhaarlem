@@ -35,9 +35,11 @@ sql::connect('localhost',
 			 'autototaal');
 
 // SITE SETTINGS
-
-core::$DOMAIN     	= "autoservicehaarlem.nl";
-//core::$DOMAIN = 'www.autototaalhaarlem.nl';
+if (isset($_SERVER['HTTP_HOST'])) {
+	core::$DOMAIN     	= $_SERVER['HTTP_HOST'];
+} else {
+	core::$DOMAIN     	= "www.autoservicehaarlem.nl";
+}
 // ROOT only has to be set if the site managed by the CMS is in a subfolder of the domain, so if the site managed by the cms is in site.com/root/rootb set ROOT to root/rootb
 core::$ROOT			= "";
 core::$LOGINTABLE 	= "admin";
