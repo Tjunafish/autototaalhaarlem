@@ -71,7 +71,7 @@ require 'loader.php';
     
         <div id="header_nav_right">
 		
-			<a href="index.php?logout=true">Uitloggen</a>
+			<a href="index.php?logout=true&page=banners">Uitloggen</a>
 			
 		</div>
         
