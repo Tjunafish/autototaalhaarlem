@@ -23,7 +23,7 @@ require_once 'social/_social.php';
 // General settings
 // ----------------
  
-define('ROOT',		  		'http://www.autototaalhaarlem.nl/');
+define('ROOT',		  		'http://autototaalhaarlem.nl/');
 define('COOKIE_DOMAIN',		'/');
 define('LUXUS',        		$_SERVER['REMOTE_ADDR'] == '90.145.41.202');
 
