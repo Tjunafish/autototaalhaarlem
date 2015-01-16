@@ -11,7 +11,7 @@ if($_POST){
 	$error = core::validate($checks);
 	
 	if(count($error) == 0)	
-		core::send_mail(core::$mail_from,'Nieuw bericht via Autoservicehaarlem.nl',
+		core::send_mail(core::$mail_from,'Nieuw bericht via Autototaalhaarlem.nl',
 					   '<b>Naam: </b>'.$_POST['name'].' '.$_POST['lastname'].'<br/>'.
 			   		   ($_POST['phone'] ? '<b>Telefoonnummer:</b> '.$_POST['phone'].'<br/>' : '').
 			   		   '<b>E-mailadres: </b>'.$_POST['email'].'<br/>'.
