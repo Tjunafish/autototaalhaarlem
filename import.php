@@ -282,7 +282,7 @@ if($post_social != false && $post_social['posted_to_social'] == '0'){
 	
 	$car = $post_social;      
     
-    sql::update("cars",array("posted_to_social"=>1),"WHERE `id` = '".$car[id]."'");
+    sql::update("cars",array("posted_to_social"=>1),"WHERE `id` = '".$car['id']."'");
 
     $social->set_fb_app_id('1408813742720787');
     $social->set_fb_app_secret('caf61b12ee4c09a5bed6294ea9e64cee');
@@ -295,7 +295,7 @@ if($post_social != false && $post_social['posted_to_social'] == '0'){
 	
 	fwrite($log,"POSTING TO FACEBOOK\n");	
 			
-	$social->fb_wall_post('659924380731374', $car[merk].' '.$car[model].' '.$car[type],'http://www.autototaalhaarlem.nl/'.core::car_url($car));
+	$social->fb_wall_post('659924380731374', $car['merk'].' '.$car['model'].' '.$car['type'],'http://www.autototaalhaarlem.nl/'.core::car_url($car));
 	
 	$social->set_twit_key('24Y6GVsvuxELT8RxHoZ2dQ');
 	$social->set_twit_secret('Kf1A4gIUbJmvu6jlesjikgSskr9wuFD35dqoMG8kAU');
