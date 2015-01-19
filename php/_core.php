@@ -604,7 +604,7 @@ class core {
 			
 			$extra 		 		= ' - '.$car['merk'].' '.$car['model'];
 		
-			list(self::$fbimg)  = self::car_thumb_fb($car);
+			list(self::$fbimg)  = self::car_thumbs($car);
 			self::$fbimg		= ROOT.self::$fbimg;
 
 			self::$metadesc		= substr(str_replace('*','',preg_replace('/(\s*,\s*([^\s])\s*)+/',"$2, ",$car['accessoires'])),0,150);
@@ -616,7 +616,7 @@ class core {
 										self::string('brandstof '.$car['brandstof']),
 										$car['aantal_zitplaatsen'].' zitplaatsen',
 										$car['aantal_deuren'].' deurs',
-										($car[kleur] ? $car['kleur'] : $car['basiskleur']),
+										($car['kleur'] ? $car['kleur'] : $car['basiskleur']),
 										$car['bouwjaar']);
 										
 			self::$metakeys    .= ", ".implode(", ",$keys);
@@ -835,18 +835,6 @@ class core {
  	static function car_thumbs($car){
  	
  		$thumbs = array('img/cars/'.$car['voertuignr'].'_thumb.jpg');
- 		
- 		for($i = 0;$i < count(explode(",",$car['afbeeldingen']));$i++) 
-		 	if(file_exists(dirname(__FILE__).'/../img/cars/'.$car['voertuignr'].'_'.$i.'.jpg'))		
-				$thumbs[] = 'img/cars/'.$car['voertuignr'].'_'.$i.'.jpg';
-			
-		return $thumbs;
- 	
- 	}
-
- 	static function car_thumb_fb($car){
- 	
- 		$thumbs = array('img/cars/'.$car['voertuignr'].'_deal.jpg');
  		
  		for($i = 0;$i < count(explode(",",$car['afbeeldingen']));$i++) 
 		 	if(file_exists(dirname(__FILE__).'/../img/cars/'.$car['voertuignr'].'_'.$i.'.jpg'))		
