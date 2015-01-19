@@ -190,7 +190,11 @@ fwrite($log,'HEXON_CAR_ID: '.$post['voertuignr_hexon']."\n");
 fwrite($log,'ACTION: '.$action."\n");
 
 $thumbdir 	   = 'img/cars/';
-$extra_thumbs  = array('[car]_deal.jpg'		=> '392-294',				   '[car]_thumb.jpg'	=> '400-294');
+$extra_thumbs  = array(
+	'[car]_deal.jpg'		=> '392-294',				   
+	'[car]_thumb.jpg'	=> '200-147', 
+	'[car]_fb.jpg)' => '312,232'
+);
 
 $create_thumbs = false;
 $post_social   = false;
