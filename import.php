@@ -3,13 +3,15 @@ $log = fopen('../log.txt','a');
 
 fwrite($log,"[".date('H:i:s d-m-Y')."] REQUEST MADE FROM: ".$_SERVER['REMOTE_ADDR']."\n");
 // var_dump($_SERVER['REMOTE_ADDR']);
-// if ($_SERVER['REMOTE_ADDR'] != '82.94.240.8' ){ // Request from test feed
-if($_SERVER['REMOTE_ADDR'] != '82.94.237.8'){ // Request from live feeed
-	
+$allowed_ip = array(
+	'82.94.237.8', // live
+	'82.94.240.8' // test (sandbox)
+);
+
+if (!in_array($_SERVER['REMOTE_ADDR'], $allowed_ip)) {
 	fwrite($log,"REQUEST DENIED: INVALID SERVER\n\n");
 	fclose($log);
 	exit;
-
 }
 
 require 'php/config.php';
