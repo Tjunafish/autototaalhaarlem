@@ -604,7 +604,7 @@ class core {
 			
 			$extra 		 		= ' - '.$car['merk'].' '.$car['model'];
 		
-			list(self::$fbimg)  = self::car_thumbs($car);
+			list(self::$fbimg)  = self::car_thumbs_fb($car);
 			self::$fbimg		= ROOT.self::$fbimg;
 
 			self::$metadesc		= substr(str_replace('*','',preg_replace('/(\s*,\s*([^\s])\s*)+/',"$2, ",$car['accessoires'])),0,150);
@@ -835,6 +835,18 @@ class core {
  	static function car_thumbs($car){
  	
  		$thumbs = array('img/cars/'.$car['voertuignr'].'_thumb.jpg');
+ 		
+ 		for($i = 0;$i < count(explode(",",$car['afbeeldingen']));$i++) 
+		 	if(file_exists(dirname(__FILE__).'/../img/cars/'.$car['voertuignr'].'_'.$i.'.jpg'))		
+				$thumbs[] = 'img/cars/'.$car['voertuignr'].'_'.$i.'.jpg';
+			
+		return $thumbs;
+ 	
+ 	}
+
+ 	static function car_thumbs_fb($car){
+ 	
+ 		$thumbs = array('img/cars/'.$car['voertuignr'].'_fb.jpg');
  		
  		for($i = 0;$i < count(explode(",",$car['afbeeldingen']));$i++) 
 		 	if(file_exists(dirname(__FILE__).'/../img/cars/'.$car['voertuignr'].'_'.$i.'.jpg'))		
